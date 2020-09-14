@@ -6,64 +6,296 @@
 -->
 <ion-header xmlns="http://www.w3.org/1999/html">
   <ion-toolbar color="primary">
-      <button ion-button icon-only menuToggle start>
-          <ion-icon name="menu"></ion-icon>
-      </button>
-    <ion-title>Welcome To The Disability Law Mobile App</ion-title>
+
+      <ion-item no-lines color="primary">
+          <ion-buttons item-start>
+          <button ion-button icon-only menuToggle>
+            <ion-icon name="menu"></ion-icon>
+          </button>
+          </ion-buttons>
+          <ion-title>The Wendy Kitchen</ion-title>
+
+          <ion-buttons item-end>
+          <button ion-button  *ngIf="!showLogin" (click)="pushPageWithParameters('ProfilePage',{userid:UserData.id})">
+          <ion-icon name="person" padding ></ion-icon> My Account
+          </button>
+          </ion-buttons>
+
+          <ion-buttons item-end>
+          <button ion-button *ngIf="!showLogin" (click)="logOut()">
+          <ion-icon name="logout" padding ></ion-icon> Log Out
+          </button>
+          </ion-buttons>
+
+      </ion-item>
+
   </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
-
-    <!--<ion-list  *ngFor="let law of Law; let i = index" >
-    <ion-item>
-        {{ "section "+(i+1)+ " "+ law}}
-    </ion-item>
-    </ion-list>-->
-    <ion-grid>
-        <ion-row>
-            <ion-col col-4  *ngFor="let law of Law; let i = index" >
-                <div *ngIf="((i+2)%2 == 0) then light else dark " ></div>
-                    <ng-template #dark>
-                        <div class="dark-template-divs">
-                            <ion-row class="dark-template-row1" style="">
-                                <ion-col col-11><ion-icon name="bicycle" padding style="font-size: 4em;" (click)="pushPageWithParameters('SectionPage', {langcode: LangCode, sectionid: law.id, sectionnumber: (i+1)})"></ion-icon></ion-col>
-                                <ion-col col-1>{{i+1}}</ion-col>
-                            </ion-row>
-                            <ion-row class="dark-template-row2" style="">
-                                <ion-col col-12>
-                                    <sup>{{ law.title}}</sup>
-                                </ion-col>
-                            </ion-row>
+<ion-content>
+    <div class="container-fluid" hideWhen="android,ios">
+        <div id="myCarousel" class="carousel carousel-fade" data-ride="carousel">
+            <div class="carousel-inner" style="height: 650px;">
+                <div class="carousel-item active">
+                        <div class="row">
+                            <div class="col-sm-6 carousel-headings-div animated fadeIn slower">
+                                <h2 padding>Header This is a text</h2>
+                                <h4> This is a text</h4>
+                            </div>
+                            <div class="col-sm-6"></div>
                         </div>
-                     </ng-template>
+                        <div class="row">
+                            <div class="col-sm-6"></div>
+                            <div class="col-sm-6 carousel-headings-div animated fadeIn slower">
+                                <h2 padding>Header This is a text</h2>
+                                <h4> This is a text</h4>
+                            </div>
+                        </div>
 
-                      <ng-template #light class="light-template">
-                      <div class="light-template-divs">
-                          <ion-row class="light-template-row1" style="">
-                              <ion-col col-11><ion-icon name="bicycle" padding style="font-size: 4em;" (click)="pushPageWithParameters('SectionPage', {langcode: LangCode, sectionid: law.id, sectionnumber: (i+1)})"></ion-icon></ion-col>
-                              <ion-col col-1>{{i+1}}</ion-col>
-                          </ion-row>
-                          <ion-row class="light-template-row2" style="">
-                              <ion-col col-12>
-                                  <sup>{{ law.title}}</sup>
-                              </ion-col>
-                          </ion-row>
-                      </div>
-                      </ng-template>
+                    <!--<img src="assets/imgs/banner-rice-and-veg.jpg" class=" w-100" />-->
 
-                     <ng-template #brown>
-                        <ion-row style="background: brown;">
-                            <ion-col col-4><ion-icon name="bicycle" style="font-size: 4em;"></ion-icon></ion-col>
-                            <ion-col col-8>
-                                <span padding>section {{i+1}} </span><br/>
-                                <sup>{{ law.title}}</sup>
-                            </ion-col>
-                        </ion-row>
-                    </ng-template>
+                </div>
+                <div class="carousel-item">
+                    <!--<img src="assets/imgs/banner-restautrant-african-men.jpg" class="d-block w-100" />-->
+                        <div class="row">
+                            <div class="col-sm-6"></div>
+                            <div class="col-sm-6 text-right carousel-headings-div animated fadeIn slow">
+                                <h2  padding> Two Header This is a text</h2>
+                                <h4> This is a text</h4>
+                            </div>
 
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6 text-right carousel-headings-div  animated fadeIn slower">
+                                <h2  padding> Two Header This is a text</h2>
+                                <h4> This is a text</h4>
+                            </div>
+                            <div class="col-sm-6"></div>
+                        </div>
+
+                </div>
+                <div class="carousel-item">
+                    <!--<img src="../../assets/imgs/banner-rstaurant-african-women.jpg" class="d-block w-100" />-->
+                        <div class="row">
+                            <div class="col-sm-6 carousel-headings-div  animated fadeIn slow">
+                                <h2 padding class="text-right">Third Header This is a text</h2>
+                                <h4>This is a text</h4>
+                            </div>
+                            <div class="col-sm-6"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6"></div>
+                            <div class="col-sm-6 carousel-headings-div  animated fadeIn slow">
+                                <h2 padding class="text-right">Third Header This is a text</h2>
+                                <h4>This is a text</h4>
+                            </div>
+                        </div>
+
+                </div>
+
+                <div class="carousel-item">
+                    <!--<img src="../../assets/imgs/banner-image-1.jpg" class="d-block w-100" />-->
+                    <div class="row">
+                        <div class="col-sm-6"></div>
+                        <div class="col-sm-6 text-right carousel-headings-div animated fadeIn slow">
+                            <h2 style="" padding> Four Header This is a text</h2>
+                            <h4> This is a text</h4>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 text-right carousel-headings-div animated fadeIn slow">
+                            <h2 style="" padding> Four Header This is a text</h2>
+                            <h4> This is a text</h4>
+                        </div>
+                        <div class="col-sm-6"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <ion-grid showWhen="ios,android">
+        <ion-row>
+            <ion-col col-12>
+                <ion-slides autoplay="1000" effect="flip" loop="true" class="w-100">
+                    <ion-slide>
+                        <img src="assets/imgs/banner-cupcakes.jpg" alt="" class="img-fluid"/>
+                    </ion-slide>
+                    <ion-slide>
+                        <img src="assets/imgs/banner-menu.jpg" alt="" class="img-fluid"/>
+                    </ion-slide>
+                    <ion-slide>
+                        <img src="assets/imgs/banner-food-delivery.jpg" alt="" class="img-fluid"/>
+                    </ion-slide>
+                    <ion-slide>
+                        <img src="assets/imgs/banner-rice-and-veg.jpg" alt="" class="img-fluid"/>
+                    </ion-slide>
+                </ion-slides>
             </ion-col>
         </ion-row>
     </ion-grid>
 
+    <ion-card  *ngIf="showLogin" padding>
+        <ion-card-header>
+            <ion-card-title>Login</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+
+            <div>{{errorMessageBag}}</div>
+            <div class="col-sm-4">
+
+                <div class="img" *ngIf="showLoginTab =='login'">
+                    <img src="../../assets/images/banner.jpg" class="img-fluid">
+                </div>
+            <div class="form-group" *ngIf="showLoginTab =='register'">
+                <div>
+
+                    <ion-item no-lines padding>
+                        <ion-label stacked>Name {{UserData.usersname}}</ion-label>
+                        <ion-input required type="text" [(ngModel)]="UserData.usersname" [disabled]="showPasswordField"></ion-input>
+                    </ion-item>
+                    <ion-item padding no-lines bottomMargin>
+                    <ion-label stacked>Password {{UserData.password}}</ion-label>
+                    <ion-input required type="password" [(ngModel)]="UserData.password"></ion-input>
+                    </ion-item>
+
+                    <ion-item padding no-lines bottomMargin>
+                        <ion-label stacked>Email {{UserData.email}} {{UserData.password}}</ion-label>
+                        <ion-input required type="email" [(ngModel)]="UserData.email"  [disabled]="showPasswordField"></ion-input>
+                    </ion-item>
+
+                    <ion-item padding no-lines>
+                        <ion-label stacked>Mobile: {{UserData.mobile}}</ion-label>
+                        <ion-input required type="tel" [(ngModel)]="UserData.mobile"  [disabled]="showPasswordField"></ion-input>
+                    </ion-item>
+
+                    <ion-item no-lines padding>
+                        Already Have Account <span class="material-icons">question</span>
+                    </ion-item>
+
+                    <ion-item padding no-lines>
+                        <ion-buttons>
+                            <button (click)="join('Registration')" ion-button block>
+                                sign up
+                            </button>
+                            <button type="button" ion-button block color="danger" onclick="event.preventDefault();" (click)="showLoginTab = 'login';">
+                                 Login
+                            </button>
+                        </ion-buttons>
+                    </ion-item>
+                </div>
+            </div>
+            </div>
+
+            <div class="col-sm-4">
+                <div class="img" *ngIf="showLoginTab == 'register'">
+                    <img src="../../assets/images/banner-bottom.jpg" class="img-fluid">
+                </div>
+                <div class="form-group"  *ngIf="showLoginTab == 'login'">
+                    <div>
+                        <ion-item padding no-lines bottomMargin>
+                            <ion-label stacked>Email {{UserData.email}} {{UserData.password}}</ion-label>
+                            <ion-input required type="email" [(ngModel)]="UserData.email"  [disabled]="showPasswordField"></ion-input>
+                        </ion-item>
+                        <ion-item padding no-lines bottomMargin>
+                            <ion-label stacked>Password {{UserData.password}}</ion-label>
+                            <ion-input required type="password" [(ngModel)]="UserData.password"></ion-input>
+                        </ion-item>
+
+                        <ion-item no-lines padding>
+                            Don't Already Have Account <span class="material-icons">question</span> Register In A Sec
+                        </ion-item>
+
+                        <ion-item padding no-lines>
+                            <ion-buttons>
+                                <button (click)="join('Login')" ion-button block>
+                                    Log In
+                                </button>
+                                <button type="button" ion-button block color="danger" onclick="event.preventDefault();" (click)="showLoginTab = 'register';">
+                                Register
+                                </button>
+                            </ion-buttons>
+                        </ion-item>
+                    </div>
+            </div>
+            </div>
+        </ion-card-content>
+    </ion-card>
+
+
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6" *ngFor="let p of Products; let i = index">
+            <ion-card>
+                <ion-card-header>
+                    <ion-item no-lines>
+                        <span item-right class="btn btn-primary" (click)="navCtrl.push('ProductsPage',{pty:'ppc', val:p.productcategoryid, title: p.productcategoryname})" ><ion-icon name="archive"></ion-icon> {{p.productcategoryname}}</span>
+                    </ion-item>
+                </ion-card-header>
+                <ion-card-content>
+                    <ion-item no-lines>
+
+                        <img onmouseover="event.target.setAttribute('class','animated flip product-images');" src="{{httpservice.hostdomain +p.imageurl}}" alt="{{p.title}}" class="product-images" />
+
+                        <!--<ion-img src="{{httpservice.hostdomain + p.imageurl}}" alt="image of {{p.title}}"></ion-img>-->
+
+                    </ion-item>
+                    <ion-item no-lines item-start>
+                        <h3 item-start class="strong"><ion-icon name="folder" item-start></ion-icon> {{p.title | uppercase}}</h3>
+                    </ion-item>
+
+                    <ion-item no-lines>
+                        <span> <del>NGN{{p.price}}</del></span>
+
+                        <span item-end class="animated tada infinite btn btn-primary rounded-pill">NGN{{ p.price - ((p.discountrate)*0.01*p.price)}}  <small padding>-{{p.discountrate}}%</small></span>
+                        <span #addincart{{i}} id="{{'addincart'+i}}" (click)="incrementCart(p,'-')" onMouseOver="let tween = gsap.fromTo('#'+event.target.getAttribute('id'), {scale: 1, rotation: 0},{scale: 0.7, rotation: 360, duration: 2, ease: 'elastic'}); tween.repeat(2); tween.delay(0.5); tween.play();" class="btn btn-lg btn-light" style="border-radius: 50%; box-shadow: 10px;" padding item-end title="remove or decrease item quantity in cart"><ion-icon name="cart">-</ion-icon></span>
+                        <span #removeincart{{i}} id="{{'removeincart'+i}}" (click)="incrementCart(p,'+')" onMouseOver="let tween = gsap.fromTo('#'+event.target.getAttribute('id'), {scale: 1, rotation: 0},{scale: 0.7, rotation: 360, duration: 2, ease: 'elastic'}); tween.repeat(2); tween.delay(0.5); tween.play();" class="btn btn-lg btn-primary" style="border-radius: 50%; box-shadow: 10px;" padding item-end title="add or increase item quantity in cart"><ion-icon name="cart">+</ion-icon></span>
+
+
+                    </ion-item>
+                    <ion-item no-lines>
+
+                        <small><ion-icon name="book"></ion-icon> Category: {{p.categoryname}}</small>
+                        <small item-right><ion-icon name="person"></ion-icon> {{p.usersname}}</small>
+
+                    </ion-item>
+                </ion-card-content>
+            </ion-card>
+        </div>
+    </div>
+    </div>
+
+    <!--<div class="container">
+        <div class="row">
+        </div>
+        <button class="animated bounce infinite delay-3s rounded-pill btn btn-danger">
+            me <span class="material-icons">more_vert</span>
+        </button>
+        <button id="addtocartelement" #addtocartelement class="btn btn-info" onClick="let tween = gsap.fromTo('#addtocartelement',{scale: 1, rotation: 0},{scale: 1.7, rotation: 360, duration: 2, ease: 'elastic'}); tween.repeat(2); tween.delay(0.5); tween.play();">get Products</button>
+        <button class="rounded-circle animated tada infinite slow btn  btn-primary small"><small>12</small></button>
+    </div>-->
+
+    <!------ Include the above in your HEAD tag ---------->
+
+
+    <div class="container">
+        <div class="row">
+            <div class="container">
+                <div class="row">
+                    <a href="#" class="intro-banner-vdo-play-btn pinkBg animated bounce infinite" onclick="event.preventDefault(); " (click)="pushPage('CartPage')">
+                        <i class="fa fa-cart-plus whiteText" aria-hidden="true" style="color: #ffffff;"><sup>{{Cart.no_of_items}}</sup></i>
+                        <span class="ripple pinkBg"></span>
+                        <span class="ripple pinkBg"></span>
+                        <span class="ripple pinkBg"></span>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
 </ion-content>

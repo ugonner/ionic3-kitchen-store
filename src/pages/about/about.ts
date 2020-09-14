@@ -19,7 +19,9 @@ export class AboutPage {
   }
 
   ionViewDidLoad() {
+      //location.reload();
     console.log('ionViewDidLoad AboutPage');
   }
+
 
 }

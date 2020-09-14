@@ -1,36 +1,122 @@
 page-welcome {
   ion-content{
-    background: url("../../assets/imgs/gavelonblack.jpg") !important;
-    color: #f5f5f5;
+    //background: url("../../assets/imgs/gavelonblack.jpg") !important;
+    color: #ffffff;
+    padding: 0  !important;
   }
 
-  .dark-template-divs:hover{
-    transform: rotate(360deg) !important;
+  .carousel-fade{
+    margin: 0 !important;
+    width: 100% !important;
+    background: url('../../assets/imgs/banner-restautrant-african-men.jpg') 100% 100% fixed no-repeat !important;
   }
-  .light-template-divs:hover{
-    transform: rotate(-360deg) !important;
-  }
-
-  .dark-template-divs{
-    background: #0000cc;
-    height: 200px;
-    color: antiquewhite;
-    -webkit-transition: transform 0.4s;-moz-transition: transform 4s;-ms-transition: transform 4s;-o-transition: transform 4s;transition: transform 4s;
+  .carousel-inner{
+    //background-color: #0000aa;
+    //background-image: linear-gradient(to right, #000056, #000088,blue);
+    //opacity: 0.9;
   }
 
-  .light-template-divs{
-    background: #FFFFFF;
-    height: 200px;
-    color: #000000;
-    -webkit-transition: transform 0.4s;-moz-transition: transform 4s;-ms-transition: transform 4s;-o-transition: transform 4s;transition: transform 4s;
+  /*.carousel-inner:nth-child(1){
+    background: url('assets/imgs/banner-image-1.jpg') 100% 100% fixed no-repeat;
+    height: 100%;
+  }*/
+
+  .carousel-headings-div{
+    padding: 100px 100px 100px 100px;
+    background: blue;
+    opacity: 1;
+    font-weight: bold;
+  }
+  .carousel-headings-div h2{
+    font-family: Cinzel !important;
+    color: white;
+    font-size: 2.3em;
+    font-weight: bold;
+    border-bottom: solid #ffffff 4px;
   }
 
-  .dark-template-row2{
-    text-align: center;
-    height: 4em;
+  .carousel-headings-div h4{
+    font-family: 'Roboto', 'Helvetica Neue', sans-serif;
+    color: white;
+    letter-spacing: 0.4em;
+    font-weight: bolder;
   }
-  .light-template-row2{
-    text-align: center;
-    height: 4em;
+
+  .carticnn{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    font-size: 45px;
+    border: 5px solid darkred;
   }
+
+  .pinkBg {
+    background-color: #ed184f!important;
+    background-image: linear-gradient(90deg, #fd5581, #fd8b55);
+  }
+
+  .intro-banner-vdo-play-btn{
+    height:60px;
+    width:60px;
+    position:absolute;
+    top:10%;
+    left:95%;
+    text-align:center;
+    margin:-30px 0 0 -30px;
+    border-radius:100px;
+    z-index:1
+  }
+  .intro-banner-vdo-play-btn i{
+    line-height:56px;
+    font-size:30px
+  }
+  .intro-banner-vdo-play-btn .ripple{
+    position:absolute;
+    width:160px;
+    height:160px;
+    z-index:-1;
+    left:95%;
+    top:10%;
+    opacity:0;
+    margin:-80px 0 0 -80px;
+    border-radius:100px;
+    -webkit-animation:ripple 1.8s infinite;
+    animation:ripple 1.8s infinite
+  }
+
+  @-webkit-keyframes ripple{
+    0%{
+      opacity:1;
+      -webkit-transform:scale(0);
+      transform:scale(0)
+    }
+    100%{
+      opacity:0;
+      -webkit-transform:scale(1);
+      transform:scale(1)
+    }
+  }
+  @keyframes ripple{
+    0%{
+      opacity:1;
+      -webkit-transform:scale(0);
+      transform:scale(0)
+    }
+    100%{
+      opacity:0;
+      -webkit-transform:scale(1);
+      transform:scale(1)
+    }
+  }
+
+  .intro-banner-vdo-play-btn .ripple:nth-child(2){
+    animation-delay:.3s;
+    -webkit-animation-delay:.3s
+  }
+
+  .intro-banner-vdo-play-btn .ripple:nth-child(3){
+    animation-delay:.6s;
+    -webkit-animation-delay:.6s
+  }
+
 }

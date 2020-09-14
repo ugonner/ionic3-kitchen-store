@@ -15,25 +15,85 @@ export class UtilityservicesProvider {
   constructor(public platform: Platform, public http: HttpClient, public toastCtrl: ToastController, public navCtrl: MenuController,
                private menuCtrl: MenuController, private storage: Storage, private loadingCtrl: LoadingController,
                public nativeAudio: NativeAudio) {
-      this.platform.ready().then((ready)=>{
-          this.nativeAudio.preloadSimple("id1","assets/audio/Bite.mp3").then((loaded)=>{
-              console.log("got preloaded");
-          },(err)=>{
-              this.presentToast(err,2);
-          });
-
-          //preload second sound;
-          this.nativeAudio.preloadSimple("id2","assets/audio/Splat.mp3").then((loaded)=>{
-              console.log("loaded second sound");
-          },(err)=>{
-              this.presentToast("Second Sound Not Loaded "+err,1);
-          });
-      },(err)=>{
-          console.log("error in platform");
-      });
     console.log('Hello UtilityservicesProvider Provider');
   }
 
+
+
+    Cart: any = {
+        'no_of_items': 0,
+        "products": [{'id': '', "title": '', "imageurl": '', "price": 0, "quantity": 0, "dateofpublication": '',
+            "usersid": '',"usersname": '', "usersimageurl": ''}]
+    };
+
+    incrementCart(Cart: any, product: any, incrementType: string){
+        //check if product already in cart
+        const product_cart_index = Cart.products.findIndex( cartproduct => cartproduct.id == product.id);
+        if(product_cart_index == -1){
+            //if not add product to cart products
+            //if increment is negative say sorry and add;
+            if(incrementType == "-"){
+                this.presentToast("Wendy Knows you made a mistake, and is adding the product to your cart instead",1)
+            }else{
+                product.quantity = 1;
+                product.price = (product.price - (product.discountrate * 0.01 * product.price));
+                Cart.products.push(product);
+                Cart.no_of_items++;
+                this.updateLocalCart(Cart);
+            }
+        }else{
+
+            //if in cart just increment product quantity
+            if(incrementType == "-"){
+                if(Cart.products[product_cart_index].quantity <= 1){
+                    //if qth is zero remove from cart else decrement
+                    Cart.products.pop(product_cart_index);
+                }else{
+                    Cart.products[product_cart_index].quantity--;
+                }
+                Cart.no_of_items = ((Cart.no_of_items<=1) ? 0: Cart.no_of_items-1);
+            }else{
+                Cart.products[product_cart_index].quantity++;
+                Cart.no_of_items++;
+            }
+            this.updateLocalCart(Cart);
+
+        }
+    }
+
+    /*getProducts(){
+        this.httpservice.getStuff("/admin/product/getproducts").subscribe((data)=>{
+            this.Products = data.products.data;
+            this.presentToast(data.products.data[0].title,1);
+        },(err)=>{
+            this.presentToast(err.message,1);
+        })
+    }*/
+
+    updateLocalCart(currentCart){
+        this.storage.set('last_cart',currentCart).then((cart)=>{
+            this.presentToast('Cart updated',1);
+        }).catch((err)=>{
+            this.presentToast(err.message,2);
+        })
+    }
+
+    resetLocalCart(){
+        this.updateLocalCart(this.Cart);
+        return this.Cart;
+    }
+
+    removeFromCart(Cart: any, product: any){
+        const product_cart_index = Cart.products.findIndex( cartproduct => cartproduct.id == product.id);
+        if(product_cart_index == -1 || product_cart_index == '-1' ||  product_cart_index == 'undefined' ){
+            this.presentToast("product not in tray",2);
+            return Cart;
+        }else{
+            Cart.products.pop(product_cart_index);
+            this.updateLocalCart(Cart);
+            return Cart;
+        }
+    }
 
     presentToast(message, duration){
         let timer: any;
@@ -88,6 +148,14 @@ export class UtilityservicesProvider {
             //return JSON.parse(paragraphobject.paragraphigbotext);
             return paragraphobject.paragraphigbotext;
         }
+    }
+
+    removeFromStorage(key){
+        this.storage.remove(key).then((cleared)=>{
+            this.presentToast('cleared successfully',2);
+        }).catch((err)=>{
+            this.presentToast('not cleared',2);
+        })
     }
 
     /*echoTextInTranslation(paragraphobject: any){

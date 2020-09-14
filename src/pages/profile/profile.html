@@ -1,0 +1,169 @@
+<!--
+  Generated template for the ProfilePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header  xmlns="http://www.w3.org/1999/html">
+  <ion-navbar>
+    <ion-title>profile</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+    <ion-toolbar>
+        <ion-segment [(ngModel)]='pageTab'>
+        <ion-segment-button value="userdata">Profile Information</ion-segment-button>
+        <ion-segment-button value="ordersdata" (click)="pageTab = 'ordersdata'"  *ngIf="isOwner">Orders Information</ion-segment-button>
+        <ion-segment-button value="edituserdata" (click)="pageTab = 'edituserdata'" *ngIf="isOwner">Edit Profile</ion-segment-button>
+        </ion-segment>
+    </ion-toolbar>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-8 table-responsive-sm" *ngIf="pageTab=='userdata'">
+
+                <div>
+                    <img [src]="httpservice.hostdomain+UserData.imageurl" class="img-fluid"/>
+                </div>
+
+                <div>
+                    <table class="table table-striped table-primary">
+                        <thead>
+                            <tr>
+                                <th>Profile</th>
+                                <th>Profile</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>Name</td>
+                            <td>{{UserData.name}}</td>
+                        </tr>
+                        <tr>
+                            <td>Position</td>
+                            <td>{{UserData.positionname}}</td>
+                        </tr>
+                        <tr>
+                            <td>Role</td>
+                            <td>{{UserData.rolename}} | {{UserData.rolenote}}</td>
+                        </tr>
+                        <tr>
+                            <td>Bio</td>
+                            <td>{{UserData.about}}</td>
+                        </tr>
+                        <tr>
+                            <td>Address</td>
+                            <td>{{UserData.address}}</td>
+                        </tr>
+                        <tr>
+                            <td>Mobile</td>
+                            <td>{{UserData.mobile}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+
+            <div class="col-sm-4 bg-warning" *ngIf="isOwner">
+                <div class="img">
+                    <img [src]="httpservice.hostdomain + UserData.imageurl" class="img-fluid float-left" id="profilepic" onclick="document.getElementById('userprofilepicfile').click();" title='click to change profile picture'/>
+                </div>
+
+                <div class="">
+                    <div class="form-group" hidden="true">
+                        <form name="imageForm" id="userprofilepicform">
+                            <input type="hidden" name="pty" value="imageurl"/>
+                            <input #userprofilepicfile id="userprofilepicfile" name="imageurl" type="file" (change)="editUserProfilePic(userprofilepicfile.files[0])"/>
+                        </form>
+                    </div>
+                </div>
+                <div>
+                    <button class="btn btn-primary btn-block" (click)="showPasswordField = !showPasswordField">
+                        Reset Password
+                    </button>
+                    <div *ngIf="showPasswordField">
+                        <div>
+                            <h6 class="is-invalid text-danger">{{errorMessageBag}}</h6>
+                        </div>
+                        <ion-item no-lines>
+                            <ion-label stacked>Old Password </ion-label>
+                            <ion-input type="password" #oldpassword [value]="StoredPassword"></ion-input>
+                        </ion-item>
+                        <ion-item no-lines>
+                            <ion-label stacked>Password</ion-label>
+                            <ion-input type="password" #newpassword [value]="StoredPassword"></ion-input>
+                        </ion-item>
+
+                        <ion-item no-lines>
+                            <ion-buttons>
+                                <button color="primary" ion-button block (click)="editUserProperty('password',newpassword.value)">
+                                    Reset Password
+                                </button>
+                            </ion-buttons>
+                        </ion-item>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="row"  *ngIf="pageTab=='ordersdata'">
+            <div class="col-sm-8">
+                <div class="table-responsive-sm">
+                    <table class="table table-striped table-success">
+                        <thead>
+                            <tr>
+                                <th>Status</th>
+                                <th>order delivery time</th>
+                                <th>order type</th>
+                                <th>order category</th>
+                            </tr>
+                        </thead>
+                        <tbody *ngFor="let od of Orders; let i = index">
+                            <tr>
+                                <td>{{od.status}} <br> {{od.statusnote}}</td>
+                                <td>{{od.orderdate}} | {{od.ordertime}}</td>
+                                <td>{{od.carttypename}}</td>
+                                <td>{{od.cartcategoryname}}</td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-sm-4"></div>
+        </div>
+
+        <div class="row"  *ngIf="pageTab=='edituserdata'">
+            <div class="col-sm-8">
+
+                <ion-item no-lines>
+                    <ion-label stacked>Name {{UserData.name}}</ion-label>
+                    <ion-input required type="text" [(ngModel)]="UserData.name" [disabled]="!showPasswordField"></ion-input>
+                </ion-item>
+
+                <ion-item no-lines>
+                    <ion-label stacked>Mobile: {{UserData.mobile}}</ion-label>
+                    <ion-input required type="tel" [(ngModel)]="UserData.mobile"  [disabled]="!showPasswordField"></ion-input>
+                </ion-item>
+                <ion-item no-lines>
+                    <ion-label stacked>Delivery Address {{UserData.address}}</ion-label>
+                    <ion-textarea required [(ngModel)]="UserData.address" [value]="UserData.address">{{UserData.address}}</ion-textarea>
+                </ion-item>
+                <ion-item no-lines>
+                    <ion-label stacked>Bio {{UserData.about}}</ion-label>
+                    <ion-textarea required [(ngModel)]="UserData.about" [value]="UserData.about">{{UserData.about}}</ion-textarea>
+                </ion-item>
+
+                <ion-item no-lines>
+                    <ion-buttons>
+                        <button (click)="editUserData()" ion-button block>
+                            Update Profile
+                        </button>
+                    </ion-buttons>
+                </ion-item>
+            </div>
+        </div>
+    </div>
+</ion-content>

@@ -17,20 +17,20 @@ export class HttpserviceProvider {
   }
 
 
-    //public hostdomain = "http://localhost";
-    public hostdomain = "https://disabilitylawcenter-anambra.com.ng";
-    //public bibleapi = "http://labs.bible.org";
-    /*public headers= new HttpHeaders({
-        "Content-Type": "application/json",
-        "withCredentials": true
-    });*/
-    //private requestoptions = new HttpHeaders().set("Content-type", "application/json").set("withCredentials", "true");
+    public hostdomain = "http://localhost:8000";
+    //public hostdomain = "https://disabilitylawcenter-anambra.com.ng";
 
 
     postStuff(uri: String, postdata): Observable<any>{
-        let requestoptions = new HttpHeaders().set("Content-type", "application/json").set("withCredentials", "true");
+        //let requestoptions = {headers:new HttpHeaders().set("Content-type", "application/json").set("withCredentials", "true")};
         let url = this.hostdomain + uri;
         return this.http.post(url,postdata);
+    }
+
+    getStuff(uri: String): Observable<any>{
+        let requestoptions = {headers:new HttpHeaders().set("Content-type", "application/json").set("withCredentials", "true")};
+        let url = this.hostdomain + uri;
+        return this.http.get(url,requestoptions);
     }
 
     /*getStuff(uri: String, postdata){
