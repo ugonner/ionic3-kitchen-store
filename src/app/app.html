@@ -6,49 +6,39 @@
         </ion-toolbar>
     </ion-header>
     <ion-content>
-        <ion-item no-lines><ion-icon name="home" padding end></ion-icon> Home</ion-item>
-        <!--<ion-item (click)="pushPage('AboutPage')"><ion-icon name="persons" padding end></ion-icon> About Us</ion-item>
-        -->
+        <ion-item no-lines (click)="goHome()"><ion-icon name="home" padding end></ion-icon> Home</ion-item>
+
+
+        <ion-item no-lines (click)="pushPage('MenuitemsPage')"><ion-icon name="list" padding></ion-icon> Kitchen Menu</ion-item>
+
         <ion-item no-lines (click)="pushPageWithParameters('AboutPage', {langcode: 1})"><ion-icon name="people" padding></ion-icon> About Us</ion-item>
         <ion-item no-lines  *ngIf="UserId">
-            <ion-buttons>
-                <button ion-button block (click)="pushPageWithParameters('ProfilePage',{userid:UserId})">
-                    <ion-icon name="person" padding ></ion-icon> My Account
-                </button>
-                <button ion-button block (click)="logOut()">
-                    <ion-icon name="logout" padding ></ion-icon> Log Out
-                </button>
-            </ion-buttons>
+        <ion-buttons>
+            <button ion-button block (click)="pushPageWithParameters('ProfilePage',{userid:UserId})">
+            <ion-icon name="person" padding ></ion-icon> My Account
+            </button>
+            <button ion-button block (click)="logOut('only_user_datas')">
+            <ion-icon name="logout" padding ></ion-icon> Log Out
+            </button>
+        </ion-buttons>
         </ion-item>
-        <ion-item no-lines (click)="pushPage('MenuitemsPage')"><ion-icon name="cutlery" padding></ion-icon> Kitchen Menu</ion-item>
 
 
 
-        <div>
-            <ion-item no-lines>
-                Products <span class="btn" item-right (click)="showItemsOf= 'productcategories'"><ion-icon name="add"></ion-icon></span>
-            </ion-item>
+        <div class="container">
+            <div class="row">
+                <h3>
 
-            <div *ngIf="showItemsOf == 'productcategories'">
-            <div *ngFor="let m of MenuItems.productcategories; let mi = index">
-            <ion-item no-lines>
-                <span padding>{{m.name}}</span>
-            </ion-item>
+                    <ion-item no-lines (click)="showItemsOf = 'pcs'">
+                    <ion-icon name="paper" padding></ion-icon> Foodies <ion-icon name="arrow-down" padding></ion-icon>
+                    </ion-item>
+                </h3>
+            </div>
 
-        </div>
-        </div>
-        </div>
-
-
-        <div>
-            <ion-item no-lines>
-                Order  Categories <span class="btn" item-right (click)="showItemsOf= 'cartcategories'"><ion-icon name="add"></ion-icon></span>
-            </ion-item>
-
-            <div *ngIf="showItemsOf == 'cartcategories'">
-            <div *ngFor="let m of MenuItems.cartcategories; let mi = index">
-            <ion-item no-lines>
-                <span padding>{{m.name}}</span>
+            <div *ngIf="showItemsOf == 'pcs'">
+            <div *ngFor="let pc of MenuItems.productcategories; let pci = index">
+            <ion-item no-lines (click)="pushPageWithParameters('ProductsPage', {pty: 'ppc', val: pc.id, title: pc.name})">
+                <span padding>{{pc.name}}</span>
             </ion-item>
 
         </div>
@@ -56,36 +46,50 @@
         </div>
 
 
-        <div>
-            <ion-item no-lines>
-                Order Types <span class="btn" item-right (click)="showItemsOf= 'carttypes'"><ion-icon name="add"></ion-icon></span>
-            </ion-item>
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <h3>
+                            <ion-item no-lines (click)="showItemsOf = 'cs'">
+                                <ion-icon name="paper" padding></ion-icon> Categories <ion-icon name="arrow-down" padding></ion-icon>
+                            </ion-item>
+                        </h3>
 
-            <div *ngIf="showItemsOf == 'carttypes'">
-            <div *ngFor="let m of MenuItems.carttypes; let mi = index">
-            <ion-item padding no-lines>
-                <span padding>{{m.name}}</span>
-            </ion-item>
-
-        </div>
-        </div>
-        </div>
-        <!--<div *ngFor="let m of MenuItemsArray; let mi = index">
-            <div no-lines>
-                <span>{{m.name}}</span>
-                <span class="btn" item-right (click)="showItemsOf= m.name"><ion-icon name="caret"></ion-icon></span>
-
-                <div *ngIf="showItemsOf == m.name">
-                    <div *ngFor="let m2 of MenuItems.">
-                        <span>m2.name</span>
                     </div>
                 </div>
+
+                <div class="row" *ngIf="showItemsOf == 'cs'">
+                <div class="row" *ngFor="let m of MenuItems.categories; let i=index;">
+                    <div class="col-12">
+                        <ion-item no-lines padding>
+                            <span item-start padding (click)="pushPageWithParameters('ProductsPage', {pty: 'pc', val: m.id, title: m.name})">{{m.name | uppercase}}</span>
+                            <span item-end padding (click)="showSubItemsOf = 'subcat'+mi"> <ion-icon name="add"></ion-icon></span>
+                        </ion-item>
+                    </div>
+                    <div class="row" *ngIf="showSubItemsOf == 'subcat'+mi">
+                        <div class="col-12" *ngFor="let s of m.subcategories; let si = index;">
+                            <ion-item no-lines (click)="pushPageWithParameters('ProductsPage', {pty: 'pc', val: s.id, title: s.name})">
+                                <span item-right>{{s.name}}</span>
+                            </ion-item>
+                        </div>
+                    </div>
+                </div>
+                </div>
             </div>
-        </div>-->
+
     </ion-content>
 </ion-menu>
 
 <ion-nav [root]="rootPage" id="naw1" #nav1></ion-nav>
+<ion-footer >
+    <ion-toolbar color="dark" padding>
+        <ion-item no-lines color="dark" text-center>
+            <h5>&copy; Wendy's Kitchen Nigeria</h5>
+            <h6>Powered by ACT Awka, Anambra State <ion-icon name="call"></ion-icon> 07034667861 </h6>
+        </ion-item>
+    </ion-toolbar>
+</ion-footer>
+
 <!--<ion-header>
     <ion-toolbar>
         <ion-item color="primary">

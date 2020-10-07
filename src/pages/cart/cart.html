@@ -5,9 +5,13 @@
   Ionic pages and navigation.
 -->
 <ion-header xmlns="http://www.w3.org/1999/html">
-  <ion-navbar color="dark">
-    <ion-title>cart</ion-title>
-  </ion-navbar>
+  <ion-toolbar color="primary">
+          <button ion-button icon-only menuToggle>
+              <ion-icon name="menu"></ion-icon>
+          </button>
+      <ion-title>Wendy's Kitchen <ion-icon name="arrow-forward" padding></ion-icon> Cart</ion-title>
+
+  </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
@@ -37,7 +41,7 @@
                             <tr *ngIf="i > 0">
                                 <td>{{i}}</td>
                                 <td>
-                                    <ion-item no-lines style="background: transparent; color: #ffffff !important;">
+                                    <ion-item no-lines style="background: transparent; color: #ffffff !important;" (click)="navCtrl.push('ProductPage',{productid: cp.id})">
                                         <ion-avatar class="float-left ">
                                             <img onmouseover="event.target.setAttribute('class','animated flip')" src="{{httpservice.hostdomain + cp.imageurl}}" alt="image of {{cp.title}}" />
                                         </ion-avatar>
@@ -78,7 +82,7 @@
                 <div class="">
                     <ion-item no-lines>
                         <ion-buttons item-end>
-                            <button ion-button (click)="updateCartTotalCost(); PageTab = 'checkout_details';" class="btn btn-primary rounded-pill btn-lg animated tada infinite"  >Continue</button>
+                            <button ion-button (click)="updateCartTotalCost(); PageTab = 'checkout_details';" class="btn btn-primary rounded-pill btn-lg animated tada infinite"  >Check Out</button>
                         </ion-buttons>
                     </ion-item>
 
@@ -101,7 +105,7 @@
                     <ion-input required type="password" [(ngModel)]="UserData.password"></ion-input>
                 </ion-item>
                 <ion-item no-lines bottomMargin>
-                    <ion-label stacked>Email {{UserData.email}} {{UserData.password}}</ion-label>
+                    <ion-label stacked>Email {{UserData.email}} | passwword {{UserData.password}}</ion-label>
                     <ion-input required type="email" [(ngModel)]="UserData.email"  [disabled]="!showPasswordField"></ion-input>
                 </ion-item>
                 <ion-item no-lines>
@@ -113,19 +117,31 @@
                     <ion-textarea required [(ngModel)]="UserData.address" [value]="UserData.address">{{UserData.address}}</ion-textarea>
                 </ion-item>
                 <ion-item no-lines>
+                    <ion-label stacked>What Location (State)?</ion-label>
+                    <ion-select required [(ngModel)]="OrderDetails.orderlocationid"  #orderlocationid id="orderlocationid" (ionChange)="selectLocationSublocations(orderlocationid.value)">
+                    <ion-option *ngFor="let odl of MenuItems.locations; let i= index" value="{{odl.id}}">{{odl.name}}</ion-option>
+                    </ion-select>
+                </ion-item>
+                <ion-item no-lines>
+                    <ion-label stacked>What Sub-Location ?</ion-label>
+                    <ion-select required [(ngModel)]="OrderDetails.ordersublocationid">
+                    <ion-option *ngFor="let mis of locationSublocations; let i= index" value="{{mis.id}}">{{mis.name}}</ion-option>
+                    </ion-select>
+                </ion-item>
+                <ion-item no-lines>
                     <ion-label stacked>Delivery Time {{OrderDetails.ordertime}}</ion-label>
-                    <ion-input required type="text"  [(ngModel)]="OrderDetails.ordertime"></ion-input>
+                    <ion-datetime required displayFormat="HH:mm" pickFormat="HH:mm"  [(ngModel)]="OrderDetails.ordertime"></ion-datetime>>
                 </ion-item>
                 <ion-item no-lines>
                     <ion-label stacked>Delivery Date {{OrderDetails.orderdate}}</ion-label>
-                    <ion-input required type="text"  [(ngModel)]="OrderDetails.orderdate"></ion-input>
+                    <ion-datetime required displayFormat="YYYY-MM-DD" pickFormat="YYYY-MM-DD" [(ngModel)]="OrderDetails.orderdate"></ion-datetime>
                 </ion-item>
                 <ion-item no-lines>
                     <ion-label stacked>Any Extra Note About Your Order {{OrderDetails.ordernote}}</ion-label>
                     <ion-textarea required [(ngModel)]="OrderDetails.ordernote">{{OrderDetails.ordernote}}</ion-textarea>
                 </ion-item>
                 <ion-item no-lines>
-                    <ion-label stacked>What type of Order is this?</ion-label>
+                    <ion-label stacked>What type of Order is this? Payment Method</ion-label>
                     <ion-select required [(ngModel)]="OrderDetails.carttypeid">
                     <ion-option *ngFor="let cct of MenuItems.carttypes; let i= index" value="{{cct.id}}">{{cct.name}}</ion-option>
                     </ion-select>
@@ -140,15 +156,16 @@
             <div class="">
                 <ion-item no-lines>
                     <ion-buttons item-start>
-                        <button ion-button (click)="PageTab = 'cart'" class="btn btn-primary rounded-pill btn-lg animated infinite"  >Back To Cart</button>
+                        <button ion-button (click)="PageTab = 'cart'" class="btn btn-primary rounded-pill btn-lg"  >Back To Cart</button>
                     </ion-buttons>
 
-                    <ion-buttons item-end>
-                        <button ion-button (click)="updateCartTotalCost(); placeOrder(UserData.id)" class="btn btn-success rounded-pill btn-lg animated tada infinite"  >Place Order</button>
-
+                    <ion-buttons item-end *ngIf="OrderDetails.carttypeid == 1">
+                        <button (click)="updateCartTotalCost(); payWithPaystack()" ion-button class="btn btn-danger btn-lg rounded-pill animated tada infinite">Pay Paystack</button>
                     </ion-buttons>
-                    <ion-buttons>
-                        <button (click)="payWithPaystack()" ion-button class="btn btn-danger">Pay Paystack</button>
+
+                    <ion-buttons item-end  *ngIf="OrderDetails.carttypeid == 2">
+                    <button ion-button (click)="updateCartTotalCost(); placeOrder(UserData.id)" class="btn btn-success rounded-pill btn-lg animated tada infinite"  >Place Order</button>
+
                     </ion-buttons>
                 </ion-item>
 

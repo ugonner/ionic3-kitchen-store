@@ -29,6 +29,7 @@ export class ProfilePage {
     StoredPassword: string;
     StoredUserData: any;
     isOwner: boolean = false;
+
     ionViewDidEnter() {
         //first set userdata from local storage, if there's network it will be replaced from server data
 
@@ -47,20 +48,28 @@ export class ProfilePage {
         //alert('userid'+ userid)
         //if((userid)){
 
-            this.httpservice.getStuff('/admin/user/userprofile/'+userid).subscribe((data)=>{
+        let loader = this.utilityservice.presentLoading('will be done in a jiffy, please wait');
 
+        this.httpservice.getStuff('/admin/user/userprofile/'+userid).subscribe((data)=>{
+
+                if(loader){
+
+                    this.utilityservice.dismissLoader(loader);
+
+                }
                 //alert('isowner soredid='+this.StoredUserData.id + ' serverUserId= '+data.user.id);
-                alert(JSON.stringify(data));
+                //alert(JSON.stringify(data));
                 if(data.success == true){
 
 
-                    alert('isowner soredid='+this.StoredUserData.id + ' serverUserId= '+data.user.id);
+                    //alert('isowner soredid='+this.StoredUserData.id + ' serverUserId= '+data.user.id);
 
                         this.UserData = data.user;
 
                     if(this.StoredUserData.id == data.user.id){
 
                             this.isOwner = true;
+                            this.UserData.password = this.StoredUserData.password;
 
                             //alert('isowner soredid='+this.StoredUserData.id + ' serverUserId= '+data.user.id);
                         }
@@ -68,11 +77,11 @@ export class ProfilePage {
 
 
                 }else{
-
                     this.utilityservice.presentToast(data.message,2);
 
                 }
             },(err)=>{
+                this.utilityservice.dismissLoader(loader);
                 //alert(JSON.stringify(err)+" internet error in server");
                 this.utilityservice.presentToast(err.message,2);
             })
@@ -92,6 +101,7 @@ export class ProfilePage {
         if(!(userid == 'undefined')){
 
             this.httpservice.getStuff('/admin/cart/getcarts/ui/'+userid).subscribe((data)=>{
+
                 if(data.success == true){
                     let ordersdata = data.carts.data; //carts.data due to pagination
                     if((ordersdata.length <= 0)){
@@ -109,7 +119,9 @@ export class ProfilePage {
                 }
 
             },(err)=>{
+
                 this.utilityservice.presentToast(err.message,2);
+
             })
         }
 
@@ -187,8 +199,12 @@ export class ProfilePage {
             'val':value,
             "pty": property
         }
+
+        let loader = this.utilityservice.presentLoading('will be done in a jiffy, please wait');
+
         this.httpservice.postStuff('/admin/user/edit',postdata).subscribe((data)=>{
 
+            this.utilityservice.dismissLoader(loader);
             this.utilityservice.presentToast(data.message,2);
             if(data.success == true){
                 //this.utilityservice.presentToast(data.message,2);
@@ -209,9 +225,10 @@ export class ProfilePage {
             }else{
                 this.utilityservice.presentToast(data.message,2);
             }
-            alert(JSON.stringify(data));
+            //alert(JSON.stringify(data));
         },(err)=>{
-            alert(JSON.stringify(err));
+            this.utilityservice.dismissLoader(loader);
+            //alert(JSON.stringify(err));
             this.utilityservice.presentToast(err.message,2);
         })
     }
@@ -226,7 +243,10 @@ export class ProfilePage {
             postdata.old_email = this.UserData.email
             postdata.userid = this.UserData.id;
 
-            this.httpservice.postStuff('/admin/user/updateprofile',postdata).subscribe((data)=>{
+        let loader = this.utilityservice.presentLoading('will be done in a jiffy, please wait');
+
+        this.httpservice.postStuff('/admin/user/updateprofile',postdata).subscribe((data)=>{
+                this.utilityservice.dismissLoader(loader);
                 if(data.success == false){
                     this.utilityservice.presentToast("Didn't find you",2);
                     //make call to paystack pop
@@ -242,6 +262,7 @@ export class ProfilePage {
 
 
             },(err)=>{
+                this.utilityservice.dismissLoader(loader);
                 //let errMsgArray = err.errors;
                 this.errorMessageBag = (JSON.stringify(err.error.errors));
                 this.utilityservice.presentToast(err.message,2);
@@ -258,11 +279,16 @@ export class ProfilePage {
         formdata.append('userid',this.UserData.id);
         formdata.append('pty','imageurl');
         formdata.append("old_email",this.UserData.email);
+
+        let loader = this.utilityservice.presentLoading('will be done in a jiffy, please wait');
+
         this.httpservice.postStuff('/admin/user/edit',formdata).subscribe((data)=>{
+            this.utilityservice.dismissLoader(loader);
             //alert(JSON.stringify(data));
 
             this.utilityservice.presentToast(data.message,2);
         },(err)=>{
+            this.utilityservice.dismissLoader(loader);
             this.utilityservice.presentToast(err.message,2);
         })
 

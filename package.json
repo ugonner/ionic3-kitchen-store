@@ -14,7 +14,7 @@
     "@angular/animations": "5.2.11",
     "@angular/common": "5.2.11",
     "@angular/compiler": "5.2.11",
-    "@angular/compiler-cli": "^10.0.11",
+    "@angular/compiler-cli": "5.2.11",
     "@angular/core": "5.2.11",
     "@angular/forms": "5.2.11",
     "@angular/http": "5.2.11",
@@ -28,6 +28,7 @@
     "@ionic/angular": "^4.11.10",
     "@ionic/storage": "2.2.0",
     "cordova-android": "^8.0.0",
+    "cordova-browser": "^6.0.0",
     "cordova-plugin-nativeaudio": "^3.0.9",
     "cordova-plugin-tts": "^0.2.3",
     "ionic-angular": "3.9.5",
@@ -62,7 +63,8 @@
       "cordova-plugin-nativeaudio": {}
     },
     "platforms": [
-      "android"
+      "android",
+      "browser"
     ]
   }
 }

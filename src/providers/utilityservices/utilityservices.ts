@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Platform,MenuController,NavController, NavParams ,ToastController,LoadingController, Loading } from 'ionic-angular';
+import { Platform,MenuController,NavController, NavParams ,ToastController,LoadingController, Loading, AlertController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { NativeAudio } from '@ionic-native/native-audio';
 /*
@@ -14,7 +14,7 @@ export class UtilityservicesProvider {
 
   constructor(public platform: Platform, public http: HttpClient, public toastCtrl: ToastController, public navCtrl: MenuController,
                private menuCtrl: MenuController, private storage: Storage, private loadingCtrl: LoadingController,
-               public nativeAudio: NativeAudio) {
+               public nativeAudio: NativeAudio, public alertCtrl: AlertController) {
     console.log('Hello UtilityservicesProvider Provider');
   }
 
@@ -106,11 +106,20 @@ export class UtilityservicesProvider {
         }
         let toast = this.toastCtrl.create({
             "message":message,
-            "position":"middle",
+            "position":"bottom",
             "duration": timer
         });
         toast.present();
 
+    }
+
+    presentAlert(title,message){
+        let alert = this.alertCtrl.create({
+            title: "<ion-item no-lines><span item-start padding><ion-icon name='checkmark-circle'></ion-icon></span><span padding>"+title+"</span></ion-item>",
+            message: message,
+            buttons: ['Dismiss']
+        });
+        alert.present();
     }
 
     playSound(SoundNumber){
@@ -122,9 +131,10 @@ export class UtilityservicesProvider {
     }
     presentLoading(message): Loading{
         let loader = this.loadingCtrl.create({
-            "content": message,
+            spinner:'hide',
+            "content": '<div class="col-12 text-center"><div><img src="../../assets/images/g1.jpg" class="mx-auto d-block animated tasa infinite"/>'+message+' </div></div> ',
             "showBackdrop": true,
-            "enableBackdropDismiss": true,
+            "enableBackdropDismiss": false,
             "dismissOnPageChange": true
         });
         loader.present();
@@ -133,6 +143,7 @@ export class UtilityservicesProvider {
 
     dismissLoader(loader: Loading){
         loader.dismiss()
+        return loader = null;
     }
 
     echoTextInTranslation(paragraphobject: any, langcode){

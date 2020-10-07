@@ -19,7 +19,9 @@ import { UtilityservicesProvider } from '../providers/utilityservices/utilityser
     MyApp,
     WelcomePage
   ],
+
   imports: [
+
     BrowserModule,
     HttpClientModule,
     IonicModule.forRoot(MyApp),

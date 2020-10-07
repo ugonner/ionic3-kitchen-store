@@ -22,9 +22,9 @@
           </ion-buttons>
 
           <ion-buttons item-end>
-          <button ion-button *ngIf="!showLogin" (click)="logOut()">
-          <ion-icon name="logout" padding ></ion-icon> Log Out
-          </button>
+              <button ion-button *ngIf="!showLogin" (click)="logOut()">
+              <ion-icon name="power" padding ></ion-icon> Log Out
+              </button>
           </ion-buttons>
 
       </ion-item>
@@ -35,79 +35,58 @@
 <ion-content>
     <div class="container-fluid" hideWhen="android,ios">
         <div id="myCarousel" class="carousel carousel-fade" data-ride="carousel">
-            <div class="carousel-inner" style="height: 650px;">
+            <div class="carousel-inner">
                 <div class="carousel-item active">
                         <div class="row">
                             <div class="col-sm-6 carousel-headings-div animated fadeIn slower">
-                                <h2 padding>Header This is a text</h2>
-                                <h4> This is a text</h4>
+                                <h2 padding>Wow Your Experience, Get Served Exactly When You Want It</h2>
+                                <h4> Wendy delivers as prompt as you tell us to</h4>
                             </div>
-                            <div class="col-sm-6"></div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-6"></div>
-                            <div class="col-sm-6 carousel-headings-div animated fadeIn slower">
-                                <h2 padding>Header This is a text</h2>
-                                <h4> This is a text</h4>
+                            <div class="col-sm-6">
                             </div>
                         </div>
-
-                    <!--<img src="assets/imgs/banner-rice-and-veg.jpg" class=" w-100" />-->
-
                 </div>
+
                 <div class="carousel-item">
-                    <!--<img src="assets/imgs/banner-restautrant-african-men.jpg" class="d-block w-100" />-->
+
                         <div class="row">
-                            <div class="col-sm-6"></div>
-                            <div class="col-sm-6 text-right carousel-headings-div animated fadeIn slow">
-                                <h2  padding> Two Header This is a text</h2>
-                                <h4> This is a text</h4>
+                            <div class="col-sm-6">
                             </div>
 
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-6 text-right carousel-headings-div  animated fadeIn slower">
-                                <h2  padding> Two Header This is a text</h2>
-                                <h4> This is a text</h4>
+                            <div class="col-sm-6 text-right carousel-headings-div  animated rotateIn slower">
+                                <h2  padding> Wow Your Taste, Wendy Always Beat Your Taste</h2>
+                                <h4> Wendy's Kitchen is smoking</h4>
                             </div>
-                            <div class="col-sm-6"></div>
                         </div>
 
                 </div>
                 <div class="carousel-item">
-                    <!--<img src="../../assets/imgs/banner-rstaurant-african-women.jpg" class="d-block w-100" />-->
+
+
                         <div class="row">
-                            <div class="col-sm-6 carousel-headings-div  animated fadeIn slow">
-                                <h2 padding class="text-right">Third Header This is a text</h2>
-                                <h4>This is a text</h4>
+                            <div class="col-sm-6 carousel-headings-div  animated fadeInDown slow">
+                                <h2 padding class="text-right">Be Our Boss, Serving You Is A Delight</h2>
+                                <h4>Wendy's Kitchen surely keeps it excellent</h4>
                             </div>
-                            <div class="col-sm-6"></div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-6"></div>
-                            <div class="col-sm-6 carousel-headings-div  animated fadeIn slow">
-                                <h2 padding class="text-right">Third Header This is a text</h2>
-                                <h4>This is a text</h4>
+
+                            <div class="col-sm-6">
                             </div>
                         </div>
 
                 </div>
 
                 <div class="carousel-item">
-                    <!--<img src="../../assets/imgs/banner-image-1.jpg" class="d-block w-100" />-->
+
                     <div class="row">
-                        <div class="col-sm-6"></div>
-                        <div class="col-sm-6 text-right carousel-headings-div animated fadeIn slow">
-                            <h2 style="" padding> Four Header This is a text</h2>
-                            <h4> This is a text</h4>
+
+                        <div class="col-sm-6">
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-6 text-right carousel-headings-div animated fadeIn slow">
-                            <h2 style="" padding> Four Header This is a text</h2>
-                            <h4> This is a text</h4>
+                        <div class="col-sm-6 text-right carousel-headings-div animated fadeInLeft slow">
+                            <h2 style="" padding> Ecstatic Taste. Prompt Delivery. Excellent Service</h2>
+                            <h4> This is Wendy's Kitchen, <br> Your convenience is our value and should
+                                always come at no cost. That's the hallmark of our service
+                            </h4>
                         </div>
-                        <div class="col-sm-6"></div>
                     </div>
                 </div>
             </div>
@@ -145,10 +124,11 @@
         <ion-card-content>
 
             <div>{{errorMessageBag}}</div>
+            <div class="row">
             <div class="col-sm-4">
 
                 <div class="img" *ngIf="showLoginTab =='login'">
-                    <img src="../../assets/images/banner.jpg" class="img-fluid">
+                    <img src="assets/images/banner.jpg" class="img-fluid">
                 </div>
             <div class="form-group" *ngIf="showLoginTab =='register'">
                 <div>
@@ -190,9 +170,9 @@
             </div>
             </div>
 
-            <div class="col-sm-4">
+            <div class="col-sm-8">
                 <div class="img" *ngIf="showLoginTab == 'register'">
-                    <img src="../../assets/images/banner-bottom.jpg" class="img-fluid">
+                    <img src="assets/images/banner-bottom.jpg" class="img-fluid">
                 </div>
                 <div class="form-group"  *ngIf="showLoginTab == 'login'">
                     <div>
@@ -222,16 +202,188 @@
                     </div>
             </div>
             </div>
+            </div>
         </ion-card-content>
     </ion-card>
 
 
+<!--    for most viewed products-->
+
+    <div class="container-fluid">
+        <div class="row  bg-primary text-white">
+            <div class="col-12">
+                <ion-item no-lines color="primary">
+                    <h2 class="text-center text-uppercase font-weight-bolder"><ion-icon name="eye" large padding></ion-icon> Most Viewed Products</h2>
+                </ion-item>
+            </div>
+        </div>
+        <div class="row animated bounce infinite">
+            <div class="col-sm-4" *ngFor="let p of IndexProducts.most_viewed; let i = index">
+            <ion-card *ngIf="p.id">
+            <ion-card-header>
+                <ion-item no-lines>
+                    <span item-right class="btn btn-primary" (click)="navCtrl.push('ProductsPage',{pty:'ppc', val:p.productcategoryid, title: p.productcategoryname})" ><ion-icon name="archive"></ion-icon> {{p.productcategoryname}}</span>
+                </ion-item>
+            </ion-card-header>
+            <ion-card-content>
+                <ion-item no-lines>
+
+                    <img onmouseover="event.target.setAttribute('class','animated flip product-images');" src="{{httpservice.hostdomain +p.imageurl}}" alt="{{p.title}}" class="product-images" />
+
+                    <!--<ion-img src="{{httpservice.hostdomain + p.imageurl}}" alt="image of {{p.title}}"></ion-img>-->
+
+                </ion-item>
+                <ion-item no-lines item-start (click)="navCtrl.push('ProductPage',{productid: p.id})">
+                <h3 item-start class="strong"><ion-icon name="folder" item-start></ion-icon> {{p.title | uppercase}}</h3>
+                </ion-item>
+
+                <ion-item no-lines>
+                    <h6> <del>{{p.price  | currency: 'NGN'}}</del></h6>
+                    <span item-end class="animated tada infinite btn btn-primary rounded-pill">{{ (p.price - ((p.discountrate)*0.01*p.price))  | currency: 'NGN'}}  <small padding>-{{p.discountrate}}%</small></span>
+                </ion-item>
+
+                <ion-item no-lines>
+                    <span #addincart{{i}} id="{{'addincart'+i}}" (click)="incrementCart(p,'-')" onMouseOver="let tween = gsap.fromTo('#'+event.target.getAttribute('id'), {scale: 1, rotation: 0},{scale: 0.7, rotation: 360, duration: 2, ease: 'elastic'}); tween.repeat(2); tween.delay(0.5); tween.play();" class="btn btn-lg btn-light" style="border-radius: 50%; box-shadow: 10px;" padding item-end title="remove or decrease item quantity in cart"><ion-icon name="cart">-</ion-icon></span>
+                    <span #removeincart{{i}} id="{{'removeincart'+i}}" (click)="incrementCart(p,'+')" onMouseOver="let tween = gsap.fromTo('#'+event.target.getAttribute('id'), {scale: 1, rotation: 0},{scale: 0.7, rotation: 360, duration: 2, ease: 'elastic'}); tween.repeat(2); tween.delay(0.5); tween.play();" class="btn btn-lg btn-primary" style="border-radius: 50%; box-shadow: 10px;" padding item-end title="add or increase item quantity in cart"><ion-icon name="cart">+</ion-icon></span>
+                </ion-item>
+
+                <ion-item no-lines>
+
+                    <small><ion-icon name="book"></ion-icon> Category: {{p.categoryname}}</small>
+                    <small item-right (click)="navCtrl.push('ProfilePage',{userid: p.usersid})"><ion-icon name="person"></ion-icon> {{p.usersname}}</small>
+
+                </ion-item>
+            </ion-card-content>
+            </ion-card>
+        </div>
+    </div>
+    </div>
 
 
+    <!--end of most viewed-->
     <div class="container">
         <div class="row">
+            <div class="col-12 text-white bg-danger text-center text=uppercase py-5">
+                <h2>Easy ways to make your order </h2>
+            </div>
+        </div>
+
+        <div class="row text-center my-5">
+            <div class="col-sm-4 bg-light">
+                <div class="row py-4">
+
+                    <div class="col-12">
+                        <h3 style="font-size: 8em;">
+                            <ion-icon name="globe" padding></ion-icon>
+                        </h3>
+                    </div>
+
+                    <div class="col-12">
+                        <h3 class="card-header font-weight-bolder">Order Online</h3>
+                        <p class="p-4">
+                        </p>
+                        <ul class="" padding>
+                            <li padding>Select item from any category in the menu</li>
+                            <li padding>Add to your cart, by tapping the <span class="rounded-circle bg-light rounded-circle" padding>+</span> button</li>
+                            <li padding>Open your cart <ion-icon name="cart" padding class="btn btn-danger rounded-circle"><sup>0</sup></ion-icon> at the top right corner of the page</li>
+                            <li padding>Cross check details, switch to the order details tab,
+                                select payment type (Instant Pay, Pay On Delivery)</li>
+                            <li padding>place your order</li>
+                            <li padding>And Wendy takes care of the rest</li>
+                        </ul>
+                        <p class="my-5">
+                            <ion-item no-lines>
+                                <ion-buttons>
+                                    <button ion-button large padding block color="primary" (click)="navCtrl.push('MenuitemsPage')">
+                                    Go to Menu
+                                    </button>
+                                </ion-buttons>
+                            </ion-item>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-4">
+                <div class="row py-4">
+
+                    <div class="col-12">
+                        <h3 style="font-size: 8em;">
+                            <ion-icon name="call" padding></ion-icon>
+                        </h3>
+                    </div>
+
+                    <div class="col-12">
+                        <h3 class="card-header font-weight-bolder">Call or Text</h3>
+                        <p class="p-5">
+                            You can also book your order by texting and calling
+                            our very responsive call line
+                        </p>
+                        <p class="p-5">
+                            <span padding class="bg-primary text-white">+234 703 466 7861</span>
+                        </p>
+
+
+                        <p class="my-5">
+                            <ion-item no-lines padding>
+                                <ion-buttons>
+                                    <button ion-button large padding block color="primary">
+                                        +2347034667861
+                                    </button>
+                                </ion-buttons>
+                            </ion-item>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-4">
+                <div class="row py-4">
+
+                    <div class="col-12">
+                        <h3 style="font-size: 8em;">
+                            <ion-icon name="logo-whatsapp" padding></ion-icon>
+                        </h3>
+                    </div>
+
+                    <div class="col-12">
+                        <h3 class="card-header font-weight-bolder">Call or Text</h3>
+                        <p class="p-5">
+                            You can also book your order by messaging
+                            our very responsive call line on <sup><ion-icon name="logo-whatsapp"></ion-icon></sup>Whatsapp
+                        </p>
+                        <p class="p-5">
+                            <span padding class="bg-primary text-white"> <sup><ion-icon name="logo-whatsapp"></ion-icon></sup> +234 703 466 7861</span>
+                        </p>
+
+
+                        <p class="my-5">
+                            <ion-item no-lines padding>
+                                <ion-buttons>
+                                    <button ion-button large padding block color="primary">
+                                        <sup><ion-icon name="logo-whatsapp"></ion-icon></sup> +2347034667861
+                                    </button>
+                                </ion-buttons>
+                            </ion-item>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+        </div>
+    </div>
+
+    <div class="container">
+
+        <div class="row bg-primary text-uppercase text-center text-white">
+            <h3 class=" p-5 font-weight-bolder"> recent in kitchen</h3>
+        </div>
+        <div class="row">
             <div class="col-sm-6" *ngFor="let p of Products; let i = index">
-            <ion-card>
+            <ion-card *ngIf="p.id">
                 <ion-card-header>
                     <ion-item no-lines>
                         <span item-right class="btn btn-primary" (click)="navCtrl.push('ProductsPage',{pty:'ppc', val:p.productcategoryid, title: p.productcategoryname})" ><ion-icon name="archive"></ion-icon> {{p.productcategoryname}}</span>
@@ -245,23 +397,22 @@
                         <!--<ion-img src="{{httpservice.hostdomain + p.imageurl}}" alt="image of {{p.title}}"></ion-img>-->
 
                     </ion-item>
-                    <ion-item no-lines item-start>
-                        <h3 item-start class="strong"><ion-icon name="folder" item-start></ion-icon> {{p.title | uppercase}}</h3>
+                    <ion-item no-lines item-start (click)="navCtrl.push('ProductPage',{productid: p.id})" text-wrap>
+                        <p item-start class="strong"><ion-icon name="folder" item-start></ion-icon> {{p.title | uppercase}}</p>
                     </ion-item>
 
                     <ion-item no-lines>
-                        <span> <del>NGN{{p.price}}</del></span>
-
-                        <span item-end class="animated tada infinite btn btn-primary rounded-pill">NGN{{ p.price - ((p.discountrate)*0.01*p.price)}}  <small padding>-{{p.discountrate}}%</small></span>
+                        <h6> <del>{{p.price  | currency: 'NGN'}}</del></h6>
+                        <span item-end class="animated tada infinite btn btn-primary rounded-pill">{{ (p.price - ((p.discountrate)*0.01*p.price))  | currency: 'NGN'}}  <small padding>-{{p.discountrate}}%</small></span>
+                    </ion-item>
+                    <ion-item no-lines>
                         <span #addincart{{i}} id="{{'addincart'+i}}" (click)="incrementCart(p,'-')" onMouseOver="let tween = gsap.fromTo('#'+event.target.getAttribute('id'), {scale: 1, rotation: 0},{scale: 0.7, rotation: 360, duration: 2, ease: 'elastic'}); tween.repeat(2); tween.delay(0.5); tween.play();" class="btn btn-lg btn-light" style="border-radius: 50%; box-shadow: 10px;" padding item-end title="remove or decrease item quantity in cart"><ion-icon name="cart">-</ion-icon></span>
                         <span #removeincart{{i}} id="{{'removeincart'+i}}" (click)="incrementCart(p,'+')" onMouseOver="let tween = gsap.fromTo('#'+event.target.getAttribute('id'), {scale: 1, rotation: 0},{scale: 0.7, rotation: 360, duration: 2, ease: 'elastic'}); tween.repeat(2); tween.delay(0.5); tween.play();" class="btn btn-lg btn-primary" style="border-radius: 50%; box-shadow: 10px;" padding item-end title="add or increase item quantity in cart"><ion-icon name="cart">+</ion-icon></span>
-
-
                     </ion-item>
                     <ion-item no-lines>
 
                         <small><ion-icon name="book"></ion-icon> Category: {{p.categoryname}}</small>
-                        <small item-right><ion-icon name="person"></ion-icon> {{p.usersname}}</small>
+                        <small item-right (click)="navCtrl.push('ProfilePage',{userid: p.usersid})"><ion-icon name="person"></ion-icon> {{p.usersname}}</small>
 
                     </ion-item>
                 </ion-card-content>
@@ -270,19 +421,237 @@
     </div>
     </div>
 
-    <!--<div class="container">
-        <div class="row">
-        </div>
-        <button class="animated bounce infinite delay-3s rounded-pill btn btn-danger">
-            me <span class="material-icons">more_vert</span>
-        </button>
-        <button id="addtocartelement" #addtocartelement class="btn btn-info" onClick="let tween = gsap.fromTo('#addtocartelement',{scale: 1, rotation: 0},{scale: 1.7, rotation: 360, duration: 2, ease: 'elastic'}); tween.repeat(2); tween.delay(0.5); tween.play();">get Products</button>
-        <button class="rounded-circle animated tada infinite slow btn  btn-primary small"><small>12</small></button>
-    </div>-->
+
+
+
 
     <!------ Include the above in your HEAD tag ---------->
 
 
+
+
+    <div class="container-fluid">
+        <div class="row  bg-primary text-white" *ngIf="IndexProducts.productcategory_1[0]">
+            <div class="col-12">
+                <ion-item no-lines color="primary">
+                    <h2 class="text-center text-uppercase"><ion-icon name="wine" large padding></ion-icon>{{ IndexProducts.productcategory_1[0].productcategoryname}}</h2>
+                </ion-item>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6" *ngFor="let p of  IndexProducts.productcategory_1; let i = index">
+            <ion-card *ngIf="p.id">
+            <ion-card-header>
+                <ion-item no-lines>
+                    <span item-right class="btn btn-primary" (click)="navCtrl.push('ProductsPage',{pty:'ppc', val:p.productcategoryid, title: p.productcategoryname})" ><ion-icon name="archive"></ion-icon> {{p.productcategoryname}}</span>
+                </ion-item>
+            </ion-card-header>
+            <ion-card-content>
+                <ion-item no-lines>
+
+                    <img onmouseover="event.target.setAttribute('class','animated flip product-images');" src="{{httpservice.hostdomain +p.imageurl}}" alt="{{p.title}}" class="product-images" />
+
+                    <!--<ion-img src="{{httpservice.hostdomain + p.imageurl}}" alt="image of {{p.title}}"></ion-img>-->
+
+                </ion-item>
+                <ion-item no-lines item-start (click)="navCtrl.push('ProductPage',{productid: p.id})">
+                <h3 item-start class="strong"><ion-icon name="folder" item-start></ion-icon> {{p.title | uppercase}}</h3>
+                </ion-item>
+
+                <ion-item no-lines>
+                    <h6> <del>{{p.price  | currency: 'NGN'}}</del></h6>
+                    <span item-end class="animated tada infinite btn btn-primary rounded-pill">{{ (p.price - ((p.discountrate)*0.01*p.price))  | currency: 'NGN'}}  <small padding>-{{p.discountrate}}%</small></span>
+                </ion-item>
+
+                <ion-item no-lines>
+                    <span #addincart{{i}} id="{{'addincart'+i}}" (click)="incrementCart(p,'-')" onMouseOver="let tween = gsap.fromTo('#'+event.target.getAttribute('id'), {scale: 1, rotation: 0},{scale: 0.7, rotation: 360, duration: 2, ease: 'elastic'}); tween.repeat(2); tween.delay(0.5); tween.play();" class="btn btn-lg btn-light" style="border-radius: 50%; box-shadow: 10px;" padding item-end title="remove or decrease item quantity in cart"><ion-icon name="cart">-</ion-icon></span>
+                    <span #removeincart{{i}} id="{{'removeincart'+i}}" (click)="incrementCart(p,'+')" onMouseOver="let tween = gsap.fromTo('#'+event.target.getAttribute('id'), {scale: 1, rotation: 0},{scale: 0.7, rotation: 360, duration: 2, ease: 'elastic'}); tween.repeat(2); tween.delay(0.5); tween.play();" class="btn btn-lg btn-primary" style="border-radius: 50%; box-shadow: 10px;" padding item-end title="add or increase item quantity in cart"><ion-icon name="cart">+</ion-icon></span>
+                </ion-item>
+
+                <ion-item no-lines>
+
+                    <small><ion-icon name="book"></ion-icon> Category: {{p.categoryname}}</small>
+                    <small item-right (click)="navCtrl.push('ProfilePage',{userid: p.usersid})"><ion-icon name="person"></ion-icon> {{p.usersname}}</small>
+
+                </ion-item>
+            </ion-card-content>
+            </ion-card>
+        </div>
+    </div>
+    </div>
+
+    <!--end for first most viewed-->
+
+    <!--for first product category-->
+
+
+    <div class="container-fluid">
+        <div class="row bg-primary text-white"  *ngIf="IndexProducts.productcategory_2[0]">
+            <div class="col-12">
+                <ion-item no-lines color="primary">
+                    <h2 class="text-center text-uppercase"><ion-icon name="cup" large padding></ion-icon>{{ IndexProducts.productcategory_2[0].productcategoryname}} <ion-icon name="add-circle"> More...</ion-icon></h2>
+                </ion-item>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4" *ngFor="let p of IndexProducts.productcategory_2; let i = index">
+            <ion-card *ngIf="p.id">
+            <ion-card-header>
+                <ion-item no-lines>
+                    <span item-right class="btn btn-primary" (click)="navCtrl.push('ProductsPage',{pty:'ppc', val:p.productcategoryid, title: p.productcategoryname})" ><ion-icon name="archive"></ion-icon> {{p.productcategoryname}}</span>
+                </ion-item>
+            </ion-card-header>
+            <ion-card-content>
+                <ion-item no-lines>
+
+                    <img onmouseover="event.target.setAttribute('class','animated flip product-images');" src="{{httpservice.hostdomain +p.imageurl}}" alt="{{p.title}}" class="product-images" />
+
+                    <!--<ion-img src="{{httpservice.hostdomain + p.imageurl}}" alt="image of {{p.title}}"></ion-img>-->
+
+                </ion-item>
+                <ion-item no-lines item-start (click)="navCtrl.push('ProductPage',{productid: p.id})">
+                <h3 item-start class="strong"><ion-icon name="folder" item-start></ion-icon> {{p.title | uppercase}}</h3>
+                </ion-item>
+
+                <ion-item no-lines>
+                    <h6> <del>{{p.price  | currency: 'NGN'}}</del></h6>
+                    <span item-end class="animated tada infinite btn btn-primary rounded-pill">{{ (p.price - ((p.discountrate)*0.01*p.price))  | currency: 'NGN'}}  <small padding>-{{p.discountrate}}%</small></span>
+                </ion-item>
+
+                <ion-item no-lines>
+                    <span #addincart{{i}} id="{{'addincart'+i}}" (click)="incrementCart(p,'-')" onMouseOver="let tween = gsap.fromTo('#'+event.target.getAttribute('id'), {scale: 1, rotation: 0},{scale: 0.7, rotation: 360, duration: 2, ease: 'elastic'}); tween.repeat(2); tween.delay(0.5); tween.play();" class="btn btn-lg btn-light" style="border-radius: 50%; box-shadow: 10px;" padding item-end title="remove or decrease item quantity in cart"><ion-icon name="cart">-</ion-icon></span>
+                    <span #removeincart{{i}} id="{{'removeincart'+i}}" (click)="incrementCart(p,'+')" onMouseOver="let tween = gsap.fromTo('#'+event.target.getAttribute('id'), {scale: 1, rotation: 0},{scale: 0.7, rotation: 360, duration: 2, ease: 'elastic'}); tween.repeat(2); tween.delay(0.5); tween.play();" class="btn btn-lg btn-primary" style="border-radius: 50%; box-shadow: 10px;" padding item-end title="add or increase item quantity in cart"><ion-icon name="cart">+</ion-icon></span>
+                </ion-item>
+
+                <ion-item no-lines>
+
+                    <small><ion-icon name="book"></ion-icon> Category: {{p.categoryname}}</small>
+                    <small item-right (click)="navCtrl.push('ProfilePage',{userid: p.usersid})"><ion-icon name="person"></ion-icon> {{p.usersname}}</small>
+
+                </ion-item>
+            </ion-card-content>
+            </ion-card>
+        </div>
+    </div>
+    </div>
+
+    <!-- end for first prodcut category-->
+
+
+
+    <!--for categories-->
+
+
+    <div class="container-fluid"  *ngIf="IndexProducts.allcategories[0]">
+        <div class="row">
+        <div class="col-12">
+            <ion-item no-lines color="primary">
+                <h2 class="text-center text-uppercase"><ion-icon name="cup" large padding></ion-icon>More and More</h2>
+            </ion-item>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-4" *ngFor="let p of IndexProducts.allcategories; let i = index">
+        <ion-card *ngIf="p.id">
+        <ion-card-header>
+            <ion-item no-lines>
+                <span item-right class="btn btn-primary" (click)="navCtrl.push('ProductsPage',{pty:'ppc', val:p.productcategoryid, title: p.productcategoryname})" ><ion-icon name="archive"></ion-icon> {{p.productcategoryname}}</span>
+            </ion-item>
+        </ion-card-header>
+        <ion-card-content>
+            <ion-item no-lines>
+
+                <img onmouseover="event.target.setAttribute('class','animated flip product-images');" src="{{httpservice.hostdomain +p.imageurl}}" alt="{{p.title}}" class="product-images" />
+
+                <!--<ion-img src="{{httpservice.hostdomain + p.imageurl}}" alt="image of {{p.title}}"></ion-img>-->
+
+            </ion-item>
+            <ion-item no-lines item-start (click)="navCtrl.push('ProductPage',{productid: p.id})">
+            <h3 item-start class="strong"><ion-icon name="folder" item-start></ion-icon> {{p.title | uppercase}}</h3>
+            </ion-item>
+
+            <ion-item no-lines>
+                <h6> <del>{{p.price  | currency: 'NGN'}}</del></h6>
+                <span item-end class="animated tada infinite btn btn-primary rounded-pill">{{ (p.price - ((p.discountrate)*0.01*p.price))  | currency: 'NGN'}}  <small padding>-{{p.discountrate}}%</small></span>
+            </ion-item>
+
+            <ion-item no-lines>
+                <span #addincart{{i}} id="{{'addincart'+i}}" (click)="incrementCart(p,'-')" onMouseOver="let tween = gsap.fromTo('#'+event.target.getAttribute('id'), {scale: 1, rotation: 0},{scale: 0.7, rotation: 360, duration: 2, ease: 'elastic'}); tween.repeat(2); tween.delay(0.5); tween.play();" class="btn btn-lg btn-light" style="border-radius: 50%; box-shadow: 10px;" padding item-end title="remove or decrease item quantity in cart"><ion-icon name="cart">-</ion-icon></span>
+                <span #removeincart{{i}} id="{{'removeincart'+i}}" (click)="incrementCart(p,'+')" onMouseOver="let tween = gsap.fromTo('#'+event.target.getAttribute('id'), {scale: 1, rotation: 0},{scale: 0.7, rotation: 360, duration: 2, ease: 'elastic'}); tween.repeat(2); tween.delay(0.5); tween.play();" class="btn btn-lg btn-primary" style="border-radius: 50%; box-shadow: 10px;" padding item-end title="add or increase item quantity in cart"><ion-icon name="cart">+</ion-icon></span>
+            </ion-item>
+
+            <ion-item no-lines>
+
+                <small><ion-icon name="book"></ion-icon> Category: {{p.categoryname}}</small>
+                <small item-right (click)="navCtrl.push('ProfilePage',{userid: p.usersid})"><ion-icon name="person"></ion-icon> {{p.usersname}}</small>
+
+            </ion-item>
+        </ion-card-content>
+        </ion-card>
+    </div>
+    </div>
+    </div>
+
+
+    <!--end for categories-->
+
+    <!--for index articles-->
+    <div class="container my-5">
+        <div class="row">
+            <div class="col-12">
+                <h2 class="bg-primary text-white text-center text-uppercase py-5 h-25">Wendy's little tips</h2>
+
+
+                <ion-slides>
+                    <ion-slide *ngFor="let a of IndexArticles; let ai= index">
+                        <img src="{{httpservice.hostdomain + a.imageurl}}" title="{{a.title}}" alt="image of {{a.title}}" style="max-height: 200px;" class="img-fluid"/>
+                        <h2>{{a.title}}</h2>
+                        <p> detail coming soon {{a.detail}} ...</p>
+                    </ion-slide>
+                </ion-slides>
+            </div>
+        </div>
+    </div>
+
+    <!--    end index articles-->
+
+    <!--for index users-->
+
+    <div class="container my-5">
+        <div class="row bg-primary my-5">
+            <div class="col-12 my-3">
+                <h2 class="bg-primary text-white text-center text-uppercase py-5 h-25">Professionals at Wendy's Kitchen</h2>
+
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-4">
+                <img src="assets/images/a11.jpg" class="img-fluid h-100" />
+            </div>
+            <div class="col-8">
+                <div class="row">
+                <div class="col-sm-6 userdivs" *ngFor="let u of IndexUsers; let ui = index;">
+                    <div class="userimagedivs">
+                        <img src="{{httpservice.hostdomain + u.imageurl}}" class="img-fluid rounded" alt="{{'image of '+ u.name}}" />
+                    </div>
+                    <div class="useraboutdivs animated fadeInLeft" title="tap to view profile" (click)="navCtrl.push('ProfilePage',{userid: u.id})">
+                        <h3 class="card card-header font-weight-bolder">{{u.name}}</h3>
+                        <div class="row">
+                            <div class="col-12">
+                                {{u.rolename}} | {{u.positionname}} | {{u.locationname}} | {{u.sublocationname}}
+                            </div>
+                        </div>
+                        <p class="text-monospace"></p>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--end users-->
     <div class="container">
         <div class="row">
             <div class="container">
@@ -298,4 +667,34 @@
 
         </div>
     </div>
+
+    <div class="container-fluid  bg-dark text-white" style="padding-bottom: 200px;">
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="row">
+                    <div class="col-sm-2">
+
+                        <p class="py-5">
+                            <img src="assets/images/a11.jpg" class="rounded-circle img-fluid" />
+                        </p>
+                    </div>
+
+                    <div class="col-sm-10">
+                        <h1 class="text-danger font-weight-bolder py-5">
+
+                            About Wendy
+                        </h1>
+
+                        <p class="text-white py-5">
+                            Wendy's is an online kitchen restaurant for prompt food vendoring,
+                            and kitchen services in and around Oyo State Nigeria.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4"></div>
+            <div class="col-sm-4"></div>
+        </div>
+    </div>
+
 </ion-content>

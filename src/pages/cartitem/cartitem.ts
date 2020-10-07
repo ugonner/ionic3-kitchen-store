@@ -5,7 +5,7 @@ import { HttpserviceProvider } from '../../providers/httpservice/httpservice';
 import { UtilityservicesProvider } from '../../providers/utilityservices/utilityservices';
 
 /**
- * Generated class for the ProductsPage page.
+ * Generated class for the CartitemPage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
@@ -13,10 +13,10 @@ import { UtilityservicesProvider } from '../../providers/utilityservices/utility
 
 @IonicPage()
 @Component({
-  selector: 'page-products',
-  templateUrl: 'products.html',
+  selector: 'page-cartitem',
+  templateUrl: 'cartitem.html',
 })
-export class ProductsPage {
+export class CartitemPage {
 
     constructor(public navCtrl: NavController, public navParams: NavParams, private httpservice: HttpserviceProvider, private utilityservice: UtilityservicesProvider,
                 private platform: Platform, private storage: Storage) {
@@ -30,15 +30,27 @@ export class ProductsPage {
     UserData: any;
     ionViewDidEnter(){
         this.Title = this.navParams.get('title');
-        const val = this.navParams.get('val');
-        const pty = this.navParams.get('pty');
+        const orderid = this.navParams.get('orderid');
 
-        this.getProducts(pty,val);
+        this.getOrder(orderid);
         //set this law from locally stored last-cart
 
         this.storage.get('last_cart').then((cart)=>{
             if(cart){
                 this.Cart = cart;
+            }
+        }).catch((err)=>{
+            this.utilityservice.presentToast(err.message,2);
+        });
+
+        //get STORED ORDER
+        this.storage.get('wendy_orders').then((orders)=>{
+            if(orders){
+                for(let i=0; i<orders.length; i++){
+                    if(orderid == orders[i].id){
+                        this.Order = orders[i];
+                    }
+                }
             }
         }).catch((err)=>{
             this.utilityservice.presentToast(err.message,2);
@@ -68,6 +80,32 @@ export class ProductsPage {
     };
 
 
+    Order: any = {
+        "orderdate": '00-00-2020',
+        "ordertime": '00:00',
+        "orderaddress": '',
+        "orderamount": '0.00',
+        "orderote": '',
+        "cartcategoryid": 1,
+        "cartcategoryname": '',
+        "carttypeid": 1,
+        "carttypename": '',
+        "orderref": 1,
+        "status": '',
+        "statusnote": '',
+        "dateofpublication": '',
+
+        "cartitems": [{'id': '', "title": '', "imageurl": '', "price": 0, "quantity": 0, "dateofpublication": '',
+            "usersid": '',"usersname": '', "usersimageurl": ''}]
+    };
+
+    OrderItems: any =
+        [
+            {'id': '', "title": '', "imageurl": '', "price": 0, "quantity": 0, "dateofpublication": '',
+            "usersid": '',"usersname": '', "usersimageurl": ''}
+        ];
+
+
     //@ViewChild(addtocartelement) Add_to_cart_element;
     //@ViewChild("addtocartelement") private Add_to_cart_element: ElementRef;
 
@@ -75,21 +113,23 @@ export class ProductsPage {
         this.utilityservice.incrementCart(this.Cart,product,incrementType);
     }
 
-    getProducts(pty: any , val: any){
+    getOrder(orderid: any){
+        //alert(orderid);
         //alert("/admin/product/getproducts/"+pty+"/"+val);
 
         let loader = this.utilityservice.presentLoading('will be done in a jiffy, please wait');
 
-        this.httpservice.getStuff("/admin/product/getproducts/"+pty+"/"+val).subscribe((data)=>{
+        this.httpservice.getStuff("/admin/cart/getcart/id/"+orderid).subscribe((data)=>{
             this.utilityservice.dismissLoader(loader);
             //alert(JSON.stringify(data));
-            if(data.hasOwnProperty('products')){
+            if(data.hasOwnProperty('cart')){
 
-                this.Products = data.products.data;
-                this.Products.map((product)=>{
-                    return product.quantity = 0;
-                });
+                this.Order = data.cart;
+                this.Order.cartitems = data.cartitems;
+                //this.OrderItems = data.cartitems;
             }
+
+
 
             //this.utilityservice.presentToast(data.products.data[0].title,1);
         },(err)=>{

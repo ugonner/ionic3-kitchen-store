@@ -1,0 +1,122 @@
+<!--
+  Generated template for the CartitemPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-toolbar>
+          <button ion-button icon-only menuToggle>
+              <ion-icon name="menu"></ion-icon>
+          </button>
+    <ion-title>Wendy's Kitchen <ion-icon name="arrow-forward" padding></ion-icon> Order >> {{Title}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-3">
+
+                <div class="row">
+
+                    <div class="table-responsive-sm">
+                        <table class="table table-striped table-success">
+                            <thead>
+                            <tr>
+                                <th class="table-dark">Stat</th>
+                                <th class="table-light">Info</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td class="table-success">ORDER REFERENCE ID</td>
+                                <td class="font-weight-bolder">{{Order.orderref}}</td>
+
+                            </tr>
+                            <tr>
+                                <td class="table-success">STATUS</td>
+                                <td class="font-weight-bolder">{{Order.status}} <br> {{Order.statusnote}}</td>
+                            </tr>
+                            <tr>
+                                <td class="table-success font-weight-bolder">DELIVERY</td>
+                                <td class="font-weight-bolder">{{Order.orderdate}} | {{Order.ordertime}}</td>
+                            </tr>
+                            <tr>
+                                <td class="table-success">ORDER TYPE</td>
+                                <td class="font-weight-bolder">{{Order.carttypename}}</td>
+                            </tr>
+                            <tr>
+                                <td class="table-success">ORDER CATEGORY</td>
+                                <td class="font-weight-bolder">{{Order.cartcategoryname}}</td>
+
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-sm-9">
+
+                <div class="row" padding>
+                    <div class="col bg-light text-dark"><h2><ion-icon name="arrow-left"></ion-icon></h2></div>
+                    <div class="col bg-dark text-light"><h2>Items in Order</h2></div>
+                </div>
+
+                <div class="row">
+            <div class="col-sm-6" *ngFor="let p of Order.cartitems; let i = index">
+            <ion-card *ngIf="p.id">
+            <ion-card-header>
+                <ion-item no-lines>
+                    <span style="cursor: progress" class="btn btn-primary" (click)="navCtrl.push('ProductsPage',{pty:'pc', val:p.categoryid, title: p.categoryname})" ><ion-icon name="archive"></ion-icon> {{p.categoryname}}</span>
+                    <span item-right class="btn btn-secondary">Ordered At: {{p.cartitemprice | currency: 'NGN'}} | {{p.cartitemquantity}} units</span>
+                </ion-item>
+            </ion-card-header>
+            <ion-card-content>
+                <ion-item no-lines>
+
+                    <img onmouseover="event.target.setAttribute('class','animated flip product-images');" src="{{httpservice.hostdomain +p.imageurl}}" alt="{{p.title}}" class="product-images" />
+
+                    <!--<ion-img src="{{httpservice.hostdomain + p.imageurl}}" alt="image of {{p.title}}"></ion-img>-->
+
+                </ion-item>
+                <ion-item no-lines item-start (click)="navCtrl.push('ProductPage',{productid: p.id})">
+                <h3 item-start class="strong"><ion-icon name="folder" item-start></ion-icon> {{p.title | uppercase}}</h3>
+                </ion-item>
+
+                <ion-item no-lines>
+                    <h6> <del>{{p.price  | currency: 'NGN'}}</del></h6>
+                    <span item-end class="animated tada infinite btn btn-primary rounded-pill">{{ (p.price - ((p.discountrate)*0.01*p.price))  | currency: 'NGN'}}  <small padding>-{{p.discountrate}}%</small></span>
+                </ion-item>
+
+                <ion-item no-lines>
+                    <span #addincart{{i}} id="{{'addincart'+i}}" (click)="incrementCart(p,'-')" onMouseOver="let tween = gsap.fromTo('#'+event.target.getAttribute('id'), {scale: 1, rotation: 0},{scale: 0.7, rotation: 360, duration: 2, ease: 'elastic'}); tween.repeat(2); tween.delay(0.5); tween.play();" class="btn btn-lg btn-light" style="border-radius: 50%; box-shadow: 10px;" padding item-end title="remove or decrease item quantity in cart"><ion-icon name="cart">-</ion-icon></span>
+                    <span #removeincart{{i}} id="{{'removeincart'+i}}" (click)="incrementCart(p,'+')" onMouseOver="let tween = gsap.fromTo('#'+event.target.getAttribute('id'), {scale: 1, rotation: 0},{scale: 0.7, rotation: 360, duration: 2, ease: 'elastic'}); tween.repeat(2); tween.delay(0.5); tween.play();" class="btn btn-lg btn-primary" style="border-radius: 50%; box-shadow: 10px;" padding item-end title="add or increase item quantity in cart"><ion-icon name="cart">+</ion-icon></span>
+                </ion-item>
+            </ion-card-content>
+            </ion-card>
+        </div>
+        </div>
+            </div>
+    </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="container">
+                <div class="row">
+                    <a href="#" class="intro-banner-vdo-play-btn pinkBg animated bounce infinite" onclick="event.preventDefault(); " (click)="navCtrl.push('CartPage')">
+                    <i class="fa fa-cart-plus whiteText" aria-hidden="true" style="color: #ffffff;"><sup>{{Cart.no_of_items}}</sup></i>
+                    <span class="ripple pinkBg"></span>
+                    <span class="ripple pinkBg"></span>
+                    <span class="ripple pinkBg"></span>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</ion-content>

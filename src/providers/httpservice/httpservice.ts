@@ -17,12 +17,13 @@ export class HttpserviceProvider {
   }
 
 
-    public hostdomain = "http://localhost:8000";
+    //public hostdomain = "http://localhost:8000";
+    public hostdomain = "https://wendyskitchen.com.ng/api";
     //public hostdomain = "https://disabilitylawcenter-anambra.com.ng";
 
 
     postStuff(uri: String, postdata): Observable<any>{
-        //let requestoptions = {headers:new HttpHeaders().set("Content-type", "application/json").set("withCredentials", "true")};
+        let requestoptions = {headers:new HttpHeaders().set("Content-type", "application/json").set("withCredentials", "true")};
         let url = this.hostdomain + uri;
         return this.http.post(url,postdata);
     }

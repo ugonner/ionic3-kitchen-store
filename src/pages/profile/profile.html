@@ -5,9 +5,12 @@
   Ionic pages and navigation.
 -->
 <ion-header  xmlns="http://www.w3.org/1999/html">
-  <ion-navbar>
-    <ion-title>profile</ion-title>
-  </ion-navbar>
+  <ion-toolbar  color="primary">
+              <button ion-button menuToggle>
+                  <ion-icon name="menu"></ion-icon>
+              </button>
+            <ion-title>Wendy's Kitchen <ion-icon name="arrow-forward" padding></ion-icon> {{UserData.name}} Profile</ion-title>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
@@ -65,7 +68,7 @@
             </div>
 
 
-            <div class="col-sm-4 bg-warning" *ngIf="isOwner">
+            <div class="col-sm-4" *ngIf="isOwner">
                 <div class="img">
                     <img [src]="httpservice.hostdomain + UserData.imageurl" class="img-fluid float-left" id="profilepic" onclick="document.getElementById('userprofilepicfile').click();" title='click to change profile picture'/>
                 </div>
@@ -121,7 +124,7 @@
                             </tr>
                         </thead>
                         <tbody *ngFor="let od of Orders; let i = index">
-                            <tr>
+                            <tr padding (click)="navCtrl.push('CartitemPage', {orderid: od.id, title: od.orderref})">
                                 <td>{{od.status}} <br> {{od.statusnote}}</td>
                                 <td>{{od.orderdate}} | {{od.ordertime}}</td>
                                 <td>{{od.carttypename}}</td>

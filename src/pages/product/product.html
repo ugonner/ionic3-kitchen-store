@@ -5,44 +5,65 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-  <ion-navbar>
-    <ion-title>product</ion-title>
-  </ion-navbar>
+  <ion-toolbar  color="primary">
+              <button ion-button icon-only menuToggle>
+                  <ion-icon name="menu"></ion-icon>
+              </button>
+          <ion-title>Wendy's Kitchen <ion-icon name="arrow-forward" padding></ion-icon><ion-icon name="cup"></ion-icon> Viewing Item {{Title}}</ion-title>
+
+  </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
-    <div class="container">
+<ion-content padding text-wrap>
+    <div class="container" *ngIf="Product.item.id">
         <div class="row">
-            <div class="col-sm-8">
+            <div class="col-sm-7">
                 <div>
                     <img src="{{httpservice.hostdomain + Product.item.imageurl}}" class="img-fluid">
                 </div>
-                <div class="row my-3">
-                    <div class="col-sm-3" *ngFor="let pf of Product.productfiles; let i = index">
-                        <div>
-                            <img src="{{httpservice.hostdomain + pf.fileurl}}" class="img-fluid">
-                        </div>
-                    </div>
-                </div>
             </div>
-            <div class="col-sm-4">
+            <div class="col-sm-5">
 
                 <ion-card>
                     <ion-card-header>
                         <ion-title>
                             {{Product.item.title}}
+                            <br><b padding><ion-icon name="eye"></ion-icon> {{Product.item.no_of_views}}</b>
                         </ion-title>
                     </ion-card-header>
+
                     <ion-card-content padding>
+
+
+                        <ion-item no-lines text-wrap>
+                            <small> <del>{{Product.item.price  | currency: 'NGN'}}</del></small>
+
+
+                            <span item-end class="animated tada infinite btn btn-primary rounded-pill">{{ (Product.item.price - ((Product.item.discountrate)*0.01*Product.item.price))  | currency: 'NGN'}}  <small padding>-{{Product.item.discountrate}}%</small></span>
+
+
+                        </ion-item>
+                        <ion-item no-lines>
+                            <span #addincart id="{{'addincart'}}" (click)="incrementCart(Product.item,'-')" onMouseOver="let tween = gsap.fromTo('#'+event.target.getAttribute('id'), {scale: 1, rotation: 0},{scale: 0.7, rotation: 360, duration: 2, ease: 'elastic'}); tween.repeat(2); tween.delay(0.5); tween.play();" class="btn btn-lg btn-light" style="border-radius: 50%; box-shadow: 10px;" padding item-end title="remove or decrease item quantity in cart"><ion-icon name="cart">-</ion-icon></span>
+                            <span #removeincart id="{{'removeincart'}}" (click)="incrementCart(Product.item,'+')" onMouseOver="let tween = gsap.fromTo('#'+event.target.getAttribute('id'), {scale: 1, rotation: 0},{scale: 0.7, rotation: 360, duration: 2, ease: 'elastic'}); tween.repeat(2); tween.delay(0.5); tween.play();" class="btn btn-lg btn-primary" style="border-radius: 50%; box-shadow: 10px;" padding item-end title="add or increase item quantity in cart"><ion-icon name="cart">+</ion-icon></span>
+
+                        </ion-item>
 
                         <ion-item no-lines (click)="navCtrl.push('ProfilePage',{userid: Product.item.usersid})">
                             <ion-avatar>
-                                <img src="{{httpservice.hostdomain + Product.item.usersimageurl}" alt="" />
+                                <img src="{{httpservice.hostdomain + Product.item.usersimageurl}}" alt="" />
                             </ion-avatar>
                             <span padding>{{Product.item.usersname}}  | <small padding>{{Product.item.dateofpublication}}</small></span>
                         </ion-item>
                     </ion-card-content>
                 </ion-card>
+            </div>
+        </div>
+        <div class="row my-3">
+            <div class="col-sm-3 my-2" *ngFor="let pf of Product.productfiles; let i = index">
+                <div>
+                    <img src="{{httpservice.hostdomain + pf.fileurl}}" class="img-fluid">
+                </div>
             </div>
         </div>
 
@@ -59,28 +80,122 @@
                             {{Product.item.detail}}
                         </p>
                     </div>
-                    <div class="col-12" *ngIf="pageTab == 'reviews'">
+
+                    <div class="col-12" *ngIf="pageTab == 'reviews'" class="px-4">
                         <ion-card *ngFor="let pc of Product.product_comments; let i = index">
                             <ion-card-header>
-                                <ion-item no-lines>
-                                    <ion-buttons>
-                                        <button ion-button>
-                                            <ion-avatar>
-                                                <img src="{{httpservice.hostdomain+pc.usersimageurl}}"/>
-                                            </ion-avatar>
-                                        </button>
-                                    </ion-buttons>
-                                </ion-item>
+                                <div class="text-right clearfix">
+                                    <img src="{{httpservice.hostdomain+pc.usersimageurl}}" style="width: 50px; height: 50px;" class="mx-2 float-right rounded-circle">
+                                    <span paddigg (click)="navCtrl.push('ProfilePage',{userid: pc.usersid})"><small>{{pc.usersname}}</small></span>
+                                </div>
                             </ion-card-header>
+
                             <ion-card-content>
-                                <p>{{pc.detail}}</p>
-                                <ion-item no-lines>
-                                    {{pc.dateofpublication}}
+                                <p>
+                                    {{pc.detail}}
+
+                                </p>
+                                <h6 class="text-right"><small><i>{{pc.dateofpublication}}</i></small></h6>
+
+                                <ion-item no-lines *ngIf="pc.imageurl">
+
+                                        <img src="{{httpservice.hostdomain + pc.imageurl}}" class="img-fluid" />
+
                                 </ion-item>
+
+                                <div *ngIf="pc.usersid == UserData.id">
+                                    <div data-toggle="collapse" data-target="#editcomment">
+                                        <button class="btn btn-primary rounded-circle"><ion-icon name="create"></ion-icon></button>
+                                    </div>
+
+                                    <div class="collapse" id="editcomment">
+
+                                        <ion-item no-lines>
+                                            <ion-label stacked>Detail</ion-label>
+                                            <ion-textarea  #editdetail value="{{pc.detail}}"></ion-textarea>
+                                        </ion-item>
+
+                                        <ion-item no-lines>
+                                            <ion-buttons>
+                                                <button ion-button block (click)="editProductComment(editdetail.value, pc.id, pc.imageurl)">
+                                                    update
+                                                </button>
+                                            </ion-buttons>
+                                        </ion-item>
+                                    </div>
+                                </div>
                             </ion-card-content>
                         </ion-card>
                     </div>
                 </div>
+
+        </div>
+
+        <div class="row my-5" padding>
+
+            <div class="col-12">
+                <h2 class="text-monospace text-danger">LEAVE A REVIEW </h2>
+            </div>
+            <div class="col-12">
+                <ion-item no-lines>
+                    <ion-label stacked>Review</ion-label>
+                    <ion-textarea #detailtextarea placeholder="add review about this product"></ion-textarea>
+                </ion-item>
+
+                <div><img id="commentimage" style="display: none;" src="" class="img-fluid"></div>
+
+                <ion-item no-lines class="text-center">
+                    <span class="btn btn-primary rounded-pill" padding onclick="document.getElementById('productcommentfile').click();"><ion-icon name="camera"></ion-icon></span>
+                </ion-item>
+                <ion-item no-lines>
+                    <ion-buttons>
+                        <button (click)="postReview(detailtextarea.value)" ion-button block color="dark">
+                            Post Review
+                        </button>
+                    </ion-buttons>
+                </ion-item>
+                <form hidden="hidden">
+                    <input type="file" #productcommentfile id="productcommentfile" accept="image/*" (change)="setCommentImage()">
+                </form>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-12" >
+                <h2 class="text-center my-5" padding>WENDY SUGGESTS YOU MAY ALSO LIKE THESE DISHES TOO</h2>
+            </div>
+            <div class="col-sm-3" *ngFor="let p of Products; let i=index">
+                <div  *ngIf="p.id != Product.item.id">
+
+                    <div>
+                        <img src="{{httpservice.hostdomain + p.imageurl}}" class="img-fluid" />
+                    </div>
+                    <div class="text-center" padding>
+                        <h5 (click)="navCtrl.push('ProductPage',{productid: p.id})">
+                        {{p.title}}
+                        <br> <del>{{p.price  | currency: 'NGN'}}</del> | -{{p.discountrate}}% | {{(p.price - (p.discountrate * 0.01* p.price))  | currency: 'NGN'}}
+                        </h5>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container">
+        <div class="row">
+            <div class="container">
+                <div class="row">
+                    <a href="#" class="intro-banner-vdo-play-btn pinkBg animated bounce infinite" onclick="event.preventDefault(); " (click)="navCtrl.push('CartPage')">
+                    <i class="fa fa-cart-plus whiteText" aria-hidden="true" style="color: #ffffff;"><sup>{{Cart.no_of_items}}</sup></i>
+                    <span class="ripple pinkBg"></span>
+                    <span class="ripple pinkBg"></span>
+                    <span class="ripple pinkBg"></span>
+                    </a>
+                </div>
+            </div>
 
         </div>
     </div>

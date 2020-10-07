@@ -43,6 +43,7 @@ export class MyApp implements OnInit{
     ];*/
 
     showItemsOf: string;
+    showSubItemsOf: string;
     private MenuItems: any = {
         'productcategories': [],
         "allcategories": [],
@@ -61,6 +62,9 @@ export class MyApp implements OnInit{
 
     UserId: any = false;
     ngOnInit() {
+        //load app's menu items
+        this.loadMenuItems();
+
         //get userdata
         this.storage.get('wendy_userdata').then((userdata)=>{
             if(userdata){
@@ -71,20 +75,8 @@ export class MyApp implements OnInit{
             }
         }).catch((storageerr)=>{})
 
-        //check for locally stored law
-        this.storage.get("wendy_menuitems")
-            .then((menuitems)=>{
-                if(menuitems){
-                    this.MenuItems = menuitems;
-                    //alert(law.sections[0].title);
-                }else{
-                    alert('no menu found');
-                    //if no law was fetched
-                    this.loadMenuItems();
-                }
-            }).catch((err)=>{
-                this.utilityservice.presentToast("storage error: unable to store the menu items "+err.message,1);
-            });
+
+
 
 
 
@@ -97,6 +89,20 @@ export class MyApp implements OnInit{
             //alert(JSON.stringify(data));
             if(data.success == true){
                 this.MenuItems = data.menuitems;
+                let menuitemscat1: Array<any> = data.menuitems.maincategories;
+                let menuitemscat2: Array<any> = data.menuitems.allcategories;
+
+                for(let i= 0, len1=menuitemscat1.length; i<len1; i++){
+                    menuitemscat1[i].subcategories = [];
+                    for(let l= 0, len2 = menuitemscat2.length; l<len2; l++){
+                        if(menuitemscat1[i].id == menuitemscat2[l].parentcategoryid){
+                            menuitemscat1[i].subcategories.push(menuitemscat2[l]);
+                        }
+                    }
+                }
+
+                this.MenuItems.categories = menuitemscat1;
+
                 this.storage.set('wendy_menuitems',this.MenuItems).then((stored)=>{
                     this.utilityservice.presentToast('Menuitems stored successfully',2);
                 }).catch((storageerr)=>{
@@ -110,13 +116,20 @@ export class MyApp implements OnInit{
     }
 
 
-    logOut(){
+    logOut(clearAll: string){
+
         this.clearStorageData('wendy_userdata');
         this.clearStorageData('wendy_orders');
         this.clearStorageData('last_cart');
         this.goHome();
         this.UserId = false;
+
+        if(clearAll == 'all'){
+            this.clearStorageData('wendy_menuitems');
+        }
     }
+
+
     clearStorageData(storageData: string){
         this.storage.remove(storageData).then((cleared)=>{
             this.utilityservice.presentToast('orders cleared',2);

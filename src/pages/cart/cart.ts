@@ -1,6 +1,6 @@
 declare var PaystackPop: any;
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 
 import { Storage } from '@ionic/storage';
 import { HttpserviceProvider } from '../../providers/httpservice/httpservice';
@@ -21,8 +21,23 @@ import { UtilityservicesProvider } from '../../providers/utilityservices/utility
 export class CartPage {
 
 
-   payWithPaystack() {
+
+
+    dismissPaystackIframe(){
+        let iframes = document.getElementsByTagName('iframe');
+        for(let i=0; i<iframes.length; i++){
+            iframes[i].style.display = "none";
+        }
+    }
+
+
+    payStackIframeIsOn: boolean = false;
+
+    payWithPaystack() {
     //e.preventDefault();
+
+    this.payStackIframeIsOn = true;
+
     let handler = PaystackPop.setup({
         key: 'pk_test_cab152282ae4dbe3e8806d278c48e0f5b8d76710', // Replace with your public key
         email: this.UserData.email,
@@ -42,7 +57,7 @@ export class CartPage {
     handler.openIframe();
 }
 
-    constructor(public navCtrl: NavController, public navParams: NavParams, private httpservice: HttpserviceProvider, private utilityservice: UtilityservicesProvider, private storage: Storage) {
+    constructor(public navCtrl: NavController, public navParams: NavParams, private httpservice: HttpserviceProvider, private utilityservice: UtilityservicesProvider, private storage: Storage, private alertCtrl: AlertController) {
   }
 
     ionViewDidLoad() {
@@ -67,6 +82,7 @@ export class CartPage {
         this.utilityservice.presentToast("payment cancelled , try again", 2);
         console.log('payment failed');
     }
+
 
     ionViewDidEnter() {
         this.storage.get('last_cart').then((cart)=>{
@@ -109,8 +125,12 @@ export class CartPage {
     MenuItems: any={
         "carttypes":[{'id':1,"name": 'Door Delivery YES'}, {"id":2,"name": 'real'}],
         "cartcategories": [{'id':1,"name": 'Instant Delivery YES'}, {"id":2,"name": 'real'}],
-        "productcategories": []
+        "productcategories": [],
+        locations: [{id: 1, name: ''}],
+        sublocations: [{id: 1, name: '', locationid: 1}]
+
     }
+
 
     UserData: any = {
         "id": '',
@@ -127,6 +147,8 @@ export class CartPage {
         "orderdate": '00-00-2020',
         "ordertime": '00:00',
         "orderaddress": '',
+        "orderlocationid":'',
+        "ordersublocationid":'',
         "orderamount": '0.00',
         "ordernote": '',
         "cartcategoryid": 1,
@@ -170,7 +192,8 @@ export class CartPage {
 
     }
 
-    emptyCart(){
+    actualEmptyCart(){
+
         this.utilityservice.resetLocalCart();
         this.Cart = {
             'no_of_items': 0,
@@ -179,19 +202,78 @@ export class CartPage {
         };
     }
 
+    emptyCart(){
+        let alert = this.utilityservice.alertCtrl.create({
+            title: "Confirm ",
+            message: "You sure want to empty your cart?",
+            buttons: [
+                {
+                    role: 'destructive',
+                    text: 'I sure do',
+                    handler: ()=>{
+                        this.actualEmptyCart();
+                        return true;
+                    }
+                },
+                {
+                    role: 'cancel',
+                    text: 'No',
+                    handler: ()=>{
+                        return true;
+                    }
+                }
+            ]
+        })
+        alert.present()
+    }
+
+
     //paystack secret key = sk_test_3b322217064583493ef390003860fecd7b7ea876
     //paystack public key = pk_test_cab152282ae4dbe3e8806d278c48e0f5b8d76710
+
+
+    locationSublocations: Array<any> = [{id: 1, name: '', locationid: 1}];
+
+    selectLocationSublocations(locationid){
+
+        if(!(this.OrderDetails.orderlocationid == 31)){
+            this.utilityservice.presentToast("we don't do door delivery to this location please",2);
+
+        }
+
+
+        let sublocationsArray: Array<any> = [];
+        let thisSubLocationArray = this.MenuItems.sublocations;
+
+        for(let i=0; i<thisSubLocationArray.length; i++){
+            if(thisSubLocationArray[i].locationid == locationid){
+                sublocationsArray.push(thisSubLocationArray[i]);
+
+            }
+        }
+
+        this.locationSublocations = sublocationsArray;
+    }
+
+
     private errorMessageBag: string;
+    presentAlert(title,message){
+        let alert = this.alertCtrl.create({
+            title: "<ion-item no-lines><span item-start padding><ion-icon name='checkmark-circle'></ion-icon></span><span padding>"+title+"</span></ion-item>",
+            message: message
+        });
+        alert.present();
+    }
+
     placeOrder(reference){
         //gatther product ids
         let cartproductsids: Array<any> = [];
         let products: Array<any> = this.Cart.products;
-        for(let i=0; i<products.length; i++){
-            cartproductsids.push(products[i].id);
-        }
+
 
         let postdata = {
             logFromApp: true,
+            id: this.UserData.id,
             email: this.UserData.email,
             password: this.UserData.password,
             name: this.UserData.name,
@@ -199,6 +281,8 @@ export class CartPage {
             address: this.UserData.address,
 
             orderaddress: this.UserData.address,
+            orderlocationid: this.OrderDetails.orderlocationid,
+            ordersublocationid: this.OrderDetails.ordersublocationid,
             orderdate: this.OrderDetails.orderdate,
             ordertime: this.OrderDetails.ordertime,
             orderamount: this.CartTotalCost.toString(),
@@ -207,13 +291,19 @@ export class CartPage {
             cartcategoryid: (this.OrderDetails.cartcategoryid),
             carttypeid: (this.OrderDetails.carttypeid),
 
-            "cartproductsids": cartproductsids
+            "cartproducts": products
         };
 
+        //alert(postdata.id+" id and email= "+ postdata.email+" and pass= "+this.UserData.password);
+        let loader = this.utilityservice.presentLoading('will be done in a jiffy, please wait');
+
         this.httpservice.postStuff("/admin/cart/createcart",postdata).subscribe((data)=>{
-            alert(JSON.stringify(data));
+            this.utilityservice.dismissLoader(loader);
+            //alert(JSON.stringify(data));
+            //alert(JSON.stringify(data));
             if(data.success == false){
-                this.utilityservice.presentToast("result 0 "+data.error.message,2);
+                //alert(data);
+                //this.utilityservice.presentToast("result 0 "+data.error.message,2);
             }else{
 
                 ///store order;
@@ -242,13 +332,21 @@ export class CartPage {
                             user.password = this.UserData.password;
                             user.name = (user.hasOwnProperty('name')? user.name : user.name);
                             user.id = (user.hasOwnProperty('id')? user.id : user.userid);
-                            alert(user.address);
+                            //alert(user.address);
+
                             this.storage.set('wendy_userdata',user).then((userstored)=>{
                                     this.utilityservice.presentToast(data.message +' and saved all details successfully',2);
                                 }).catch((err)=>{
                                     this.utilityservice.presentToast(err.message+', '+data.message +' but not all saved',2);
                                 });
                         }
+                        let title = "Wendy's Kitchen Alert";
+                        let message = "Order Received at Wendy's, Expect your delivery, We'll surely beat your expectations, Thanks for patronizing us";
+                        if(this.OrderDetails.carttypeid == 1){
+                            message += "<br/> Successful instant Pay, A receipt has been sent your mailbox, We appreciate your trust AND WE VALUE THAT MOST";
+                        }
+
+                        this.utilityservice.presentAlert(title, message);
                         this.utilityservice.presentToast(data.message +' and order updated successfully',2);
                     }).catch((err)=>{
                         this.utilityservice.presentToast(err.message+', '+data.message +' but not saved',2);
@@ -259,11 +357,15 @@ export class CartPage {
                 //this.utilityservice.presentToast(data.results + 'created '+ data.message, 2);
             }
         },(err)=>{
+            this.utilityservice.dismissLoader(loader);
             //let errMsgArray = err.errors;
             this.errorMessageBag = (JSON.stringify(err.error.message));
             this.utilityservice.presentToast(err.message,2);
         })
+
     }
+
+
 
     clearOrders(storageData: string){
         this.storage.remove(storageData).then((cleared)=>{

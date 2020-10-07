@@ -5,19 +5,28 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-  <ion-navbar>
-    <ion-title>menuitems</ion-title>
-  </ion-navbar>
+  <ion-toolbar color="primary">
+          <button ion-button icon-only menuToggle>
+              <ion-icon name="menu"></ion-icon>
+          </button>
+    <ion-title>Wendy's Kitchen <ion-icon name="arrow-forward" padding></ion-icon> Menu Items</ion-title>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
     <div class="container">
+
+
+    <h2 class="card-header text-center text-danger bg-dark font-weight-bolder py-5">MEAL CATEGORIES </h2>
             <div class="row">
 
                 <div class="col-sm-4" *ngFor="let pc of MenuItems.productcategories; let i = index">
                     <div class="menu-items-divs bg-primary" (click)="navCtrl.push('ProductsPage',{pty: 'ppc', val: pc.id, title: pc.name})">
-                        <div class="card">
+                        <div class="card my-5 text-white bg-primary" text-center color="primary">
                             <div class="card-header">
+                                <ion-item no-lines text-center color="primary" class="animated tada infinite">
+                                    <ion-icon name="wine" style="font-size: 3em;"></ion-icon>
+                                </ion-item>
                                 <h2>{{pc.name}}</h2>
                             </div>
                             <div class="card-content bg-transparent">
@@ -27,6 +36,27 @@
                     </div>
                 </div>
             </div>
+
+
+    <h2 class="card-header text-center text-danger bg-dark font-weight-bolder py-5">FOOD TYPES</h2>
+    <div class="row">
+        <div class="col-sm-4" *ngFor="let c of MenuItems.allcategories; let i = index">
+        <div class="menu-items-divs bg-primary" (click)="navCtrl.push('ProductsPage',{pty: 'pc', val: c.id, title: c.name})">
+        <div class="card my-5 bg-primary text-white" text-center>
+            <div class="card-header">
+                <ion-item no-lines text-center color="primary">
+                    <ion-icon name="trophy" style="font-size: 3em;"></ion-icon>
+                </ion-item>
+                <h2>{{c.name}}</h2>
+            </div>
+            <div class="card-content bg-transparent">
+                <h6 padding> About {{c.name}} | {{c.description}}</h6>
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
+
     </div>
 
 </ion-content>
